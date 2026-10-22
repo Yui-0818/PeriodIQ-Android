@@ -1,0 +1,36 @@
+PeriodIQ
+Copyright (c) 2026 Yui-0818
+
+This product includes the following third-party components:
+
+1. Python 3.11
+   Copyright (c) Python Software Foundation
+   License: Python Software Foundation License 2.0
+   https://docs.python.org/3/license.html
+
+2. Chaquopy 16.1.0
+   Copyright (c) Chaquo Ltd
+   License: MIT
+   https://github.com/chaquo/chaquopy
+
+3. AndroidX WebKit
+   Copyright (c) The Android Open Source Project
+   License: Apache License 2.0
+   https://developer.android.com/jetpack/androidx
+
+4. Kotlin Standard Library
+   Copyright (c) JetBrains s.r.o. and Kotlin Programming Language contributors
+   License: Apache License 2.0
+   https://kotlinlang.org/
+
+5. Gradle Wrapper / Android Gradle Plugin (build tooling)
+   License: Apache License 2.0
+   https://gradle.org/ · https://developer.android.com/build
+
+6. JUnit 4 and org.json (test dependencies only, not shipped in the APK)
+   JUnit: Eclipse Public License 1.0
+   org.json: JSON License
+   https://junit.org/ · https://github.com/stleary/JSON-java
+
+Application artwork and UI assets are original works for this project and are
+distributed under the same MIT License as the application code.

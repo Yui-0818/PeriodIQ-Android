@@ -1,0 +1,720 @@
+[
+ {
+  "expect": {
+   "confidence": 0.0,
+   "model_params": {
+    "ema_cycle": 28.0,
+    "mean_cycle": 28.0,
+    "n_records": 0,
+    "prior_weight": 1.0,
+    "std_cycle": 7.0
+   },
+   "model_version": "none",
+   "predicted_date": null,
+   "predicted_start_lower": null,
+   "predicted_start_upper": null
+  },
+  "input": {
+   "args": [
+    null,
+    [],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "boundary-0records"
+ },
+ {
+  "expect": {
+   "confidence": 0.4,
+   "model_params": {
+    "bayes_applied": false,
+    "dropped_illegal": 0,
+    "ema_cycle": 28.0,
+    "mean_cycle": 28.0,
+    "n_eff": 0.0,
+    "n_records": 0,
+    "prior_weight": 1.0,
+    "shrink_irregularity": 1.0,
+    "std_cycle": 7.0
+   },
+   "model_version": "cold_start_1",
+   "predicted_date": "2026-02-02",
+   "predicted_start_lower": "2026-01-23",
+   "predicted_start_upper": "2026-02-12"
+  },
+  "input": {
+   "args": [
+    "2026-01-05",
+    [],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "boundary-1record"
+ },
+ {
+  "expect": {
+   "confidence": 0.5,
+   "model_params": {
+    "bayes_applied": false,
+    "dropped_illegal": 0,
+    "ema_cycle": 28.9,
+    "mean_cycle": 31.0,
+    "n_eff": 1.0,
+    "n_records": 1,
+    "prior_weight": 0.8333,
+    "shrink_irregularity": 1.0,
+    "std_cycle": 7.0
+   },
+   "model_version": "cold_start_2",
+   "predicted_date": "2026-03-09",
+   "predicted_start_lower": "2026-02-27",
+   "predicted_start_upper": "2026-03-19"
+  },
+  "input": {
+   "args": [
+    "2026-02-06",
+    [
+     31.0
+    ],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "boundary-2records-emaNone"
+ },
+ {
+  "expect": {
+   "confidence": 0.5,
+   "model_params": {
+    "bayes_applied": false,
+    "dropped_illegal": 0,
+    "ema_cycle": 28.9,
+    "mean_cycle": 31.0,
+    "n_eff": 1.0,
+    "n_records": 1,
+    "prior_weight": 0.8333,
+    "shrink_irregularity": 1.0,
+    "std_cycle": 7.0
+   },
+   "model_version": "cold_start_2",
+   "predicted_date": "2026-03-09",
+   "predicted_start_lower": "2026-02-27",
+   "predicted_start_upper": "2026-03-19"
+  },
+  "input": {
+   "args": [
+    "2026-02-06",
+    [
+     31.0
+    ],
+    30.0
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "boundary-2records-ema30"
+ },
+ {
+  "expect": {
+   "confidence": 0.8571,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 2,
+    "ema_cycle": 28.9,
+    "mean_cycle": 29.7778,
+    "n_eff": 3.0,
+    "n_records": 3,
+    "prior_weight": 0.625,
+    "shrink_irregularity": 0.0,
+    "std_cycle": 2.0
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-04-09",
+   "predicted_start_lower": "2026-04-06",
+   "predicted_start_upper": "2026-04-12"
+  },
+  "input": {
+   "args": [
+    "2026-03-10",
+    [
+     3.0,
+     200.0,
+     28.0,
+     30.0,
+     31.0
+    ],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "boundary-illegal-dropped"
+ },
+ {
+  "expect": {
+   "confidence": 0.8571,
+   "model_params": {
+    "bayes_applied": false,
+    "dropped_illegal": 1,
+    "ema_cycle": 46.0,
+    "mean_cycle": 71.7514,
+    "n_eff": 2.0,
+    "n_records": 2,
+    "prior_weight": 0.7143,
+    "shrink_irregularity": 0.0,
+    "std_cycle": 2.0
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-03-14",
+   "predicted_start_lower": "2026-03-10",
+   "predicted_start_upper": "2026-03-18"
+  },
+  "input": {
+   "args": [
+    "2026-01-01",
+    [
+     90.0,
+     88.0,
+     92.0
+    ],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "boundary-超长周期-legal-max"
+ },
+ {
+  "expect": {
+   "confidence": 0.8571,
+   "model_params": {
+    "bayes_applied": false,
+    "dropped_illegal": 1,
+    "ema_cycle": 22.0,
+    "mean_cycle": 13.3243,
+    "n_eff": 2.0,
+    "n_records": 2,
+    "prior_weight": 0.7143,
+    "shrink_irregularity": 0.0,
+    "std_cycle": 2.0
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-01-14",
+   "predicted_start_lower": "2026-01-10",
+   "predicted_start_upper": "2026-01-18"
+  },
+  "input": {
+   "args": [
+    "2026-01-01",
+    [
+     7.0,
+     6.0,
+     8.0
+    ],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "boundary-超短周期"
+ },
+ {
+  "expect": {
+   "confidence": 0.8571,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 28.6,
+    "mean_cycle": 29.9461,
+    "n_eff": 3.0,
+    "n_records": 3,
+    "prior_weight": 0.625,
+    "shrink_irregularity": 0.0,
+    "std_cycle": 2.0
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-05-31",
+   "predicted_start_lower": "2026-05-28",
+   "predicted_start_upper": "2026-06-03"
+  },
+  "input": {
+   "args": [
+    "2026-05-01",
+    [
+     30.0,
+     30.0,
+     30.0
+    ],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "boundary-零方差-std-floor"
+ },
+ {
+  "expect": {
+   "confidence": 0.8571,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 30.25,
+    "mean_cycle": 30.2822,
+    "n_eff": 5.0,
+    "n_records": 5,
+    "prior_weight": 0.5,
+    "shrink_irregularity": 0.0,
+    "std_cycle": 2.0
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-05-01",
+   "predicted_start_lower": "2026-04-28",
+   "predicted_start_upper": "2026-05-04"
+  },
+  "input": {
+   "args": [
+    "2026-04-01",
+    [
+     28.0,
+     29.0,
+     30.0,
+     31.0,
+     32.0
+    ],
+    29.5
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "case-mid-history"
+ },
+ {
+  "expect": {
+   "confidence": 0.8458,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 29.2,
+    "mean_cycle": 29.6992,
+    "n_eff": 12.0,
+    "n_records": 12,
+    "prior_weight": 0.2941,
+    "shrink_irregularity": 0.0,
+    "std_cycle": 2.1584
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2025-02-05",
+   "predicted_start_lower": "2025-02-02",
+   "predicted_start_upper": "2025-02-08"
+  },
+  "input": {
+   "args": [
+    "2025-01-06",
+    [
+     28.0,
+     30.0,
+     27.0,
+     31.0,
+     29.0,
+     33.0,
+     30.0,
+     26.0,
+     29.0,
+     31.0,
+     28.0,
+     32.0
+    ],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "synthetic-12cycles"
+ },
+ {
+  "expect": {
+   "confidence": 0.7854,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 29.23,
+    "mean_cycle": 30.3354,
+    "n_eff": 8.9699,
+    "n_records": 9,
+    "prior_weight": 0.3579,
+    "shrink_irregularity": 0.0012,
+    "std_cycle": 3.0047
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-07-01",
+   "predicted_start_lower": "2026-06-26",
+   "predicted_start_upper": "2026-07-06"
+  },
+  "input": {
+   "args": [
+    "2026-06-01",
+    [
+     35.4,
+     29.0,
+     25.9,
+     30.7,
+     28.7,
+     35.9,
+     26.8,
+     30.1,
+     32.1
+    ],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "random-seed0"
+ },
+ {
+  "expect": {
+   "confidence": 0.5225,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 31.496,
+    "mean_cycle": 28.7554,
+    "n_eff": 5.0,
+    "n_records": 5,
+    "prior_weight": 0.5,
+    "shrink_irregularity": 0.9213,
+    "std_cycle": 6.6852
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-06-30",
+   "predicted_start_lower": "2026-06-16",
+   "predicted_start_upper": "2026-07-14"
+  },
+  "input": {
+   "args": [
+    "2026-06-01",
+    [
+     31.8,
+     36.2,
+     22.2,
+     23.2,
+     35.5
+    ],
+    29.78
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "random-seed1"
+ },
+ {
+  "expect": {
+   "confidence": 0.8095,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 26.86,
+    "mean_cycle": 25.1117,
+    "n_eff": 2.9995,
+    "n_records": 3,
+    "prior_weight": 0.625,
+    "shrink_irregularity": 0.0,
+    "std_cycle": 2.6664
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-06-26",
+   "predicted_start_lower": "2026-06-21",
+   "predicted_start_upper": "2026-07-01"
+  },
+  "input": {
+   "args": [
+    "2026-06-01",
+    [
+     22.7,
+     27.9,
+     24.2
+    ],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "random-seed2"
+ },
+ {
+  "expect": {
+   "confidence": 0.8041,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 31.765,
+    "mean_cycle": 31.7661,
+    "n_eff": 4.7775,
+    "n_records": 6,
+    "prior_weight": 0.5114,
+    "shrink_irregularity": 0.0,
+    "std_cycle": 2.7424
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-07-03",
+   "predicted_start_lower": "2026-06-28",
+   "predicted_start_upper": "2026-07-08"
+  },
+  "input": {
+   "args": [
+    "2026-06-01",
+    [
+     32.3,
+     23.5,
+     38.4,
+     30.0,
+     32.0,
+     32.5
+    ],
+    31.45
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "random-seed3"
+ },
+ {
+  "expect": {
+   "confidence": 0.6305,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 29.02,
+    "mean_cycle": 27.7063,
+    "n_eff": 6.0,
+    "n_records": 6,
+    "prior_weight": 0.4545,
+    "shrink_irregularity": 0.5433,
+    "std_cycle": 5.1733
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-06-29",
+   "predicted_start_lower": "2026-06-19",
+   "predicted_start_upper": "2026-07-09"
+  },
+  "input": {
+   "args": [
+    "2026-06-01",
+    [
+     26.8,
+     34.7,
+     30.1,
+     22.7,
+     21.4,
+     31.4
+    ],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "random-seed4"
+ },
+ {
+  "expect": {
+   "confidence": 0.5548,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 29.535,
+    "mean_cycle": 28.6688,
+    "n_eff": 12.0,
+    "n_records": 12,
+    "prior_weight": 0.2941,
+    "shrink_irregularity": 0.8081,
+    "std_cycle": 6.2324
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-06-30",
+   "predicted_start_lower": "2026-06-18",
+   "predicted_start_upper": "2026-07-12"
+  },
+  "input": {
+   "args": [
+    "2026-06-01",
+    [
+     25.9,
+     27.8,
+     34.1,
+     37.0,
+     33.4,
+     31.1,
+     37.0,
+     35.7,
+     25.7,
+     22.0,
+     24.0,
+     28.1
+    ],
+    30.15
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "random-seed5"
+ },
+ {
+  "expect": {
+   "confidence": 0.6867,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 30.07,
+    "mean_cycle": 31.46,
+    "n_eff": 11.9712,
+    "n_records": 12,
+    "prior_weight": 0.2946,
+    "shrink_irregularity": 0.3465,
+    "std_cycle": 4.3862
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-07-02",
+   "predicted_start_lower": "2026-06-24",
+   "predicted_start_upper": "2026-07-10"
+  },
+  "input": {
+   "args": [
+    "2026-06-01",
+    [
+     36.6,
+     30.2,
+     26.0,
+     21.0,
+     33.6,
+     29.9,
+     35.4,
+     28.1,
+     35.6,
+     26.2,
+     36.2,
+     34.9
+    ],
+    null
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "random-seed6"
+ },
+ {
+  "expect": {
+   "confidence": 0.4883,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 28.9062,
+    "mean_cycle": 29.242,
+    "n_eff": 8.0,
+    "n_records": 8,
+    "prior_weight": 0.3846,
+    "shrink_irregularity": 1.0,
+    "std_cycle": 7.164
+   },
+   "model_version": "bayesian_v1",
+   "predicted_date": "2026-06-30",
+   "predicted_start_lower": "2026-06-15",
+   "predicted_start_upper": "2026-07-15"
+  },
+  "input": {
+   "args": [
+    "2026-06-01",
+    [
+     39.0,
+     28.5,
+     21.9,
+     36.6,
+     22.8,
+     32.1,
+     38.3,
+     25.1
+    ],
+    30.5375
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "predict_next_period",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "random-seed7"
+ }
+]

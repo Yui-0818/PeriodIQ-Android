@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  状态栏小图标（R11 通知）：单色水滴，纯白 + alpha，由系统按通知栏配色着色。
+  刻意不用 ic_launcher 的彩色图：彩色图在状态栏会被压成一块方块（提示词 §2①）。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,3.2C12,3.2 4.6,11.2 4.6,15.2C4.6,19.2 7.9,21.6 12,21.6C16.1,21.6 19.4,19.2 19.4,15.2C19.4,11.2 12,3.2 12,3.2Z" />
+</vector>

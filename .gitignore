@@ -1,0 +1,52 @@
+# Android / Gradle
+.gradle/
+build/
+app/build/
+captures/
+*.apk
+*.aab
+*.ap_
+*.dex
+local.properties
+.cxx/
+
+# Android Studio / IDEA
+.idea/
+*.iml
+*.hprof
+.navigation/
+
+# Signing material — never commit
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+
+# Generated WebView assets (built from frontend/ by tools/copy_frontend.py)
+app/src/main/assets/www/
+
+# Local-only material
+/vendor/
+Private/
+/photo/
+AGENTS.md
+Role/
+docs/提示词/
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# OS files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# User data — never commit
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite
+*.sqlite3
+*.bak

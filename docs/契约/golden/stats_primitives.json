@@ -1,0 +1,946 @@
+[
+ {
+  "expect": [
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   0.15,
+   0.15
+  ],
+  "input": {
+   "args": [
+    [
+     28.0,
+     30.0,
+     31.0,
+     26.0,
+     29.0,
+     33.0,
+     30.0,
+     55.0,
+     5.0
+    ]
+   ],
+   "func": "robust_weights",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "robust_weights-mixed"
+ },
+ {
+  "expect": [
+   1.0
+  ],
+  "input": {
+   "args": [
+    [
+     30.0
+    ]
+   ],
+   "func": "robust_weights",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "robust_weights-single"
+ },
+ {
+  "expect": [],
+  "input": {
+   "args": [
+    []
+   ],
+   "func": "robust_weights",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "robust_weights-empty"
+ },
+ {
+  "expect": 4.0,
+  "input": {
+   "args": [
+    [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   ],
+   "func": "effective_sample_size",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "n_eff-equal"
+ },
+ {
+  "expect": 2.1394891944990175,
+  "input": {
+   "args": [
+    [
+     1.0,
+     0.15,
+     0.5
+    ]
+   ],
+   "func": "effective_sample_size",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "n_eff-skewed"
+ },
+ {
+  "expect": 0.0,
+  "input": {
+   "args": [
+    []
+   ],
+   "func": "effective_sample_size",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "n_eff-zero"
+ },
+ {
+  "expect": 29.97423288108043,
+  "input": {
+   "args": [
+    [
+     28.0,
+     30.0,
+     31.0,
+     26.0,
+     29.0,
+     33.0,
+     30.0
+    ],
+    6,
+    0.85
+   ],
+   "func": "weighted_mean",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "weighted_mean-N6"
+ },
+ {
+  "expect": 28.0,
+  "input": {
+   "args": [
+    [],
+    6,
+    0.85
+   ],
+   "func": "weighted_mean",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "weighted_mean-empty"
+ },
+ {
+  "expect": 30.210320826162764,
+  "input": {
+   "args": [
+    [
+     28.0,
+     30.0,
+     31.0,
+     26.0,
+     29.0,
+     33.0
+    ],
+    6,
+    0.85,
+    [
+     1.0,
+     0.9,
+     1.0,
+     0.2,
+     1.0,
+     0.8
+    ]
+   ],
+   "func": "weighted_mean",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "weighted_mean-extraW"
+ },
+ {
+  "expect": 30.0,
+  "input": {
+   "args": [
+    null,
+    30.0,
+    0.3
+   ],
+   "func": "ema_update",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "ema_update-init"
+ },
+ {
+  "expect": 30.6,
+  "input": {
+   "args": [
+    30.0,
+    32.0,
+    0.3
+   ],
+   "func": "ema_update",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "ema_update-step"
+ },
+ {
+  "expect": 7.0,
+  "input": {
+   "args": [
+    [
+     30.0
+    ],
+    6
+   ],
+   "func": "cycle_std",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "cycle_std-single"
+ },
+ {
+  "expect": 2.0,
+  "input": {
+   "args": [
+    [
+     30.0,
+     30.0,
+     30.0
+    ],
+    3
+   ],
+   "func": "cycle_std",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "cycle_std-zeroVar"
+ },
+ {
+  "expect": 2.4289915602982237,
+  "input": {
+   "args": [
+    [
+     28.0,
+     30.0,
+     31.0,
+     26.0,
+     29.0,
+     33.0
+    ],
+    6
+   ],
+   "func": "cycle_std",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "cycle_std-normal"
+ },
+ {
+  "expect": 2.217355782608345,
+  "input": {
+   "args": [
+    [
+     28.0,
+     30.0,
+     31.0,
+     26.0
+    ],
+    6,
+    null
+   ],
+   "func": "cycle_std",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "cycle_std-weighted"
+ },
+ {
+  "expect": 2.0445048300260873,
+  "input": {
+   "args": [
+    [
+     28.0,
+     30.0,
+     31.0,
+     26.0
+    ],
+    6,
+    [
+     1.0,
+     0.5,
+     0.2,
+     1.0
+    ]
+   ],
+   "func": "cycle_std",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "cycle_std-weighted2"
+ },
+ {
+  "expect": 28.323999999999995,
+  "input": {
+   "args": [
+    [
+     28.0,
+     30.0,
+     31.0,
+     26.0,
+     29.0
+    ]
+   ],
+   "func": "replay_ema",
+   "kwargs": {
+    "exclude_last": true
+   },
+   "module": "app.algo.stats"
+  },
+  "name": "replay_ema-exclLast"
+ },
+ {
+  "expect": 28.526799999999994,
+  "input": {
+   "args": [
+    [
+     28.0,
+     30.0,
+     31.0,
+     26.0,
+     29.0
+    ]
+   ],
+   "func": "replay_ema",
+   "kwargs": {
+    "exclude_last": false
+   },
+   "module": "app.algo.stats"
+  },
+  "name": "replay_ema-full"
+ },
+ {
+  "expect": 28.0,
+  "input": {
+   "args": [
+    []
+   ],
+   "func": "replay_ema",
+   "kwargs": {
+    "exclude_last": true
+   },
+   "module": "app.algo.stats"
+  },
+  "name": "replay_ema-empty"
+ },
+ {
+  "expect": [
+   0.6141249999999999,
+   0.7224999999999999,
+   0.85,
+   1.0
+  ],
+  "input": {
+   "args": [
+    [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    0.85
+   ],
+   "func": "decay_weights",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "decay_weights"
+ },
+ {
+  "expect": [
+   28.0,
+   7.0
+  ],
+  "input": {
+   "args": [
+    28.0,
+    7.0,
+    [],
+    2.0,
+    null
+   ],
+   "func": "normal_conjugate_posterior",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "conjugate-n0"
+ },
+ {
+  "expect": [
+   29.849056603773583,
+   1.9230478952816463
+  ],
+  "input": {
+   "args": [
+    28.0,
+    7.0,
+    [
+     30.0
+    ],
+    2.0,
+    null
+   ],
+   "func": "normal_conjugate_posterior",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "conjugate-n1"
+ },
+ {
+  "expect": [
+   29.960000000000004,
+   0.9899494936611667
+  ],
+  "input": {
+   "args": [
+    28.0,
+    7.0,
+    [
+     30.0,
+     31.0,
+     29.0,
+     33.0,
+     27.0
+    ],
+    2.0,
+    null
+   ],
+   "func": "normal_conjugate_posterior",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "conjugate-n5"
+ },
+ {
+  "expect": [
+   30.53399875832081,
+   3.17526653643929
+  ],
+  "input": {
+   "args": [
+    28.0,
+    7.0,
+    [
+     30.0,
+     31.0,
+     29.0,
+     55.0
+    ],
+    2.0,
+    [
+     1.0,
+     1.0,
+     1.0,
+     0.15
+    ]
+   ],
+   "func": "normal_conjugate_posterior",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "conjugate-weighted"
+ },
+ {
+  "expect": {
+   "bayes_applied": false,
+   "confidence": 0.4,
+   "dropped_illegal": 0,
+   "ema_prev": 28.0,
+   "fused": 28.0,
+   "interval_days": 10.5,
+   "interval_mult_applied": 1.5,
+   "interval_n_eff_applied": false,
+   "latest_cycle": null,
+   "legal_cycles": [],
+   "model_version": "cold_start_1",
+   "mu_post": 28.0,
+   "n": 0,
+   "n_eff": 0.0,
+   "new_ema": 28.0,
+   "posterior_n_eff": 0.0,
+   "predicted_cycle": 28.0,
+   "prior_weight": 1.0,
+   "robust_weights": [],
+   "shrink_irregularity": 1.0,
+   "sigma_post": 7.0,
+   "stage": "empty",
+   "std": 7.0,
+   "w_mean": 28.0,
+   "window": 6
+  },
+  "input": {
+   "args": [
+    [],
+    null
+   ],
+   "func": "predict_core",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "predict_core-n0"
+ },
+ {
+  "expect": {
+   "bayes_applied": false,
+   "confidence": 0.8571428571428572,
+   "dropped_illegal": 0,
+   "ema_prev": 28.0,
+   "fused": 29.884324324324325,
+   "interval_days": 3.674234614174767,
+   "interval_mult_applied": 1.5,
+   "interval_n_eff_applied": true,
+   "latest_cycle": 31.0,
+   "legal_cycles": [
+    30.0,
+    31.0
+   ],
+   "model_version": "bayesian_v1",
+   "mu_post": 30.440282371808642,
+   "n": 2,
+   "n_eff": 2.0,
+   "new_ema": 28.9,
+   "posterior_n_eff": 1.986937590711176,
+   "predicted_cycle": 29.884324324324325,
+   "prior_weight": 0.7142857142857143,
+   "robust_weights": [
+    1.0,
+    1.0
+   ],
+   "shrink_irregularity": 0.0,
+   "sigma_post": 1.3905764146604642,
+   "stage": "cold_2",
+   "std": 2.0,
+   "w_mean": 30.54054054054054,
+   "window": 6
+  },
+  "input": {
+   "args": [
+    [
+     30.0,
+     31.0
+    ],
+    null
+   ],
+   "func": "predict_core",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "predict_core-n2"
+ },
+ {
+  "expect": {
+   "bayes_applied": true,
+   "confidence": 0.8157741135103846,
+   "dropped_illegal": 0,
+   "ema_prev": 29.0,
+   "fused": 28.912579040918267,
+   "interval_days": 4.103423527066326,
+   "interval_mult_applied": 1.5,
+   "interval_n_eff_applied": true,
+   "latest_cycle": 27.0,
+   "legal_cycles": [
+    28.0,
+    30.0,
+    31.0,
+    26.0,
+    29.0,
+    33.0,
+    30.0,
+    27.0
+   ],
+   "model_version": "bayesian_v1",
+   "mu_post": 29.209764615442293,
+   "n": 8,
+   "n_eff": 7.999955837926953,
+   "new_ema": 28.4,
+   "posterior_n_eff": 7.049776390526791,
+   "predicted_cycle": 29.209764615442293,
+   "prior_weight": 0.38461669119003167,
+   "robust_weights": [
+    1.0,
+    1.0,
+    1.0,
+    0.9945813440979401,
+    1.0,
+    0.9945813440979401,
+    1.0,
+    1.0
+   ],
+   "shrink_irregularity": 0.0,
+   "sigma_post": 0.8834244806455954,
+   "stage": "bayesian",
+   "std": 2.579162410854614,
+   "w_mean": 29.254298401530445,
+   "window": 6
+  },
+  "input": {
+   "args": [
+    [
+     28.0,
+     30.0,
+     31.0,
+     26.0,
+     29.0,
+     33.0,
+     30.0,
+     27.0
+    ],
+    29.0
+   ],
+   "func": "predict_core",
+   "kwargs": {},
+   "module": "app.algo.stats"
+  },
+  "name": "predict_core-n8"
+ },
+ {
+  "expect": [
+   28.0,
+   7.0
+  ],
+  "input": {
+   "args": [
+    28.0,
+    7.0,
+    [],
+    2.0,
+    null
+   ],
+   "func": "bayesian_update",
+   "kwargs": {},
+   "module": "app.algo.bayesian"
+  },
+  "name": "bayesian_update-n0"
+ },
+ {
+  "expect": [
+   30.695,
+   0.9899494936611666
+  ],
+  "input": {
+   "args": [
+    28.0,
+    7.0,
+    [
+     30.0,
+     31.0,
+     29.0,
+     33.0
+    ],
+    2.0,
+    null
+   ],
+   "func": "bayesian_update",
+   "kwargs": {},
+   "module": "app.algo.bayesian"
+  },
+  "name": "bayesian_update-n4"
+ },
+ {
+  "expect": 1.0,
+  "input": {
+   "args": [
+    0.0,
+    5.0
+   ],
+   "func": "prior_weight",
+   "kwargs": {},
+   "module": "app.algo.bayesian"
+  },
+  "name": "prior_weight-n0"
+ },
+ {
+  "expect": 0.29411764705882354,
+  "input": {
+   "args": [
+    12.0,
+    5.0
+   ],
+   "func": "prior_weight",
+   "kwargs": {},
+   "module": "app.algo.bayesian"
+  },
+  "name": "prior_weight-n12"
+ },
+ {
+  "expect": {
+   "cycle_length": null,
+   "is_anomalous": false,
+   "is_hard_invalid": false,
+   "model_params": {
+    "ema_cycle": 28.0,
+    "mean_cycle": 28.0,
+    "n_records": 0,
+    "prior_mean": 28.0,
+    "prior_std": 7.0,
+    "prior_weight": 1.0,
+    "std_cycle": 7.0
+   },
+   "prediction": {
+    "confidence": 0.4,
+    "model_params": {
+     "bayes_applied": false,
+     "dropped_illegal": 0,
+     "ema_cycle": 28.0,
+     "mean_cycle": 28.0,
+     "n_eff": 0.0,
+     "n_records": 0,
+     "prior_weight": 1.0,
+     "shrink_irregularity": 1.0,
+     "std_cycle": 7.0
+    },
+    "model_version": "cold_start_1",
+    "predicted_date": "2026-02-03",
+    "predicted_start_lower": "2026-01-24",
+    "predicted_start_upper": "2026-02-13"
+   }
+  },
+  "input": {
+   "args": [
+    "2026-01-06",
+    null,
+    {
+     "cycle_lengths": [],
+     "ema_cycle": 28.0,
+     "mean_cycle": 28.0,
+     "n_records": 0,
+     "prior_mean": 28.0,
+     "prior_std": 7.0,
+     "prior_weight": 1.0,
+     "std_cycle": 7.0
+    }
+   ],
+   "date_args": [
+    0,
+    1
+   ],
+   "func": "on_new_cycle_added",
+   "kwargs": {},
+   "module": "app.algo.bayesian"
+  },
+  "name": "on_new_cycle-first"
+ },
+ {
+  "expect": {
+   "cycle_length": 31,
+   "is_anomalous": false,
+   "is_hard_invalid": false,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 29.268759999999993,
+    "mean_cycle": 29.25897995740505,
+    "n_eff": 5.999975487652141,
+    "n_records": 6,
+    "prior_mean": 29.25897995740505,
+    "prior_std": 0.8407102482573514,
+    "prior_weight": 0.45454646745464805,
+    "shrink_irregularity": 0.0,
+    "std_cycle": 2.0
+   },
+   "prediction": {
+    "confidence": 0.8571,
+    "model_params": {
+     "bayes_applied": true,
+     "dropped_illegal": 0,
+     "ema_cycle": 29.2688,
+     "mean_cycle": 29.259,
+     "n_eff": 6.0,
+     "n_records": 6,
+     "prior_weight": 0.4545,
+     "shrink_irregularity": 0.0,
+     "std_cycle": 2.0
+    },
+    "model_version": "bayesian_v1",
+    "predicted_date": "2026-04-04",
+    "predicted_start_lower": "2026-04-01",
+    "predicted_start_upper": "2026-04-07"
+   }
+  },
+  "input": {
+   "args": [
+    "2026-03-06",
+    "2026-02-03",
+    {
+     "cycle_lengths": [
+      28.0,
+      30.0,
+      31.0,
+      26.0,
+      29.0
+     ],
+     "ema_cycle": 29.4,
+     "mean_cycle": 29.5,
+     "n_records": 5,
+     "prior_mean": 28.0,
+     "prior_std": 7.0,
+     "prior_weight": 0.5,
+     "std_cycle": 2.5
+    }
+   ],
+   "date_args": [
+    0,
+    1
+   ],
+   "func": "on_new_cycle_added",
+   "kwargs": {},
+   "module": "app.algo.bayesian"
+  },
+  "name": "on_new_cycle-normal"
+ },
+ {
+  "expect": {
+   "cycle_length": 118,
+   "is_anomalous": true,
+   "is_hard_invalid": true,
+   "model_params": {
+    "ema_cycle": 29.4,
+    "mean_cycle": 29.5,
+    "n_records": 5,
+    "prior_mean": 28.0,
+    "prior_std": 7.0,
+    "prior_weight": 0.5,
+    "std_cycle": 2.5
+   },
+   "prediction": {
+    "confidence": 0.8571,
+    "model_params": {
+     "bayes_applied": true,
+     "dropped_illegal": 0,
+     "ema_cycle": 28.5268,
+     "mean_cycle": 28.7146,
+     "n_eff": 5.0,
+     "n_records": 5,
+     "prior_weight": 0.5,
+     "shrink_irregularity": 0.0,
+     "std_cycle": 2.0
+    },
+    "model_version": "bayesian_v1",
+    "predicted_date": "2026-06-30",
+    "predicted_start_lower": "2026-06-27",
+    "predicted_start_upper": "2026-07-03"
+   }
+  },
+  "input": {
+   "args": [
+    "2026-06-01",
+    "2026-02-03",
+    {
+     "cycle_lengths": [
+      28.0,
+      30.0,
+      31.0,
+      26.0,
+      29.0
+     ],
+     "ema_cycle": 29.4,
+     "mean_cycle": 29.5,
+     "n_records": 5,
+     "prior_mean": 28.0,
+     "prior_std": 7.0,
+     "prior_weight": 0.5,
+     "std_cycle": 2.5
+    }
+   ],
+   "date_args": [
+    0,
+    1
+   ],
+   "func": "on_new_cycle_added",
+   "kwargs": {},
+   "module": "app.algo.bayesian"
+  },
+  "name": "on_new_cycle-hardinvalid"
+ },
+ {
+  "expect": {
+   "cycle_length": 66,
+   "is_anomalous": true,
+   "is_hard_invalid": false,
+   "model_params": {
+    "bayes_applied": true,
+    "dropped_illegal": 0,
+    "ema_cycle": 39.76876,
+    "mean_cycle": 28.950889386066073,
+    "n_eff": 5.280994311271473,
+    "n_records": 6,
+    "prior_mean": 29.85118327961993,
+    "prior_std": 3.4054656321792525,
+    "prior_weight": 0.4863342833015962,
+    "shrink_irregularity": 1.0,
+    "std_cycle": 7.200901089263079
+   },
+   "prediction": {
+    "confidence": 0.4856,
+    "model_params": {
+     "bayes_applied": true,
+     "dropped_illegal": 0,
+     "ema_cycle": 39.7688,
+     "mean_cycle": 28.9509,
+     "n_eff": 5.281,
+     "n_records": 6,
+     "prior_weight": 0.4863,
+     "shrink_irregularity": 1.0,
+     "std_cycle": 7.2009
+    },
+    "model_version": "bayesian_v1",
+    "predicted_date": "2026-05-09",
+    "predicted_start_lower": "2026-04-23",
+    "predicted_start_upper": "2026-05-25"
+   }
+  },
+  "input": {
+   "args": [
+    "2026-04-10",
+    "2026-02-03",
+    {
+     "cycle_lengths": [
+      28.0,
+      30.0,
+      31.0,
+      26.0,
+      29.0
+     ],
+     "ema_cycle": 29.4,
+     "mean_cycle": 29.5,
+     "n_records": 5,
+     "prior_mean": 28.0,
+     "prior_std": 7.0,
+     "prior_weight": 0.5,
+     "std_cycle": 2.5
+    }
+   ],
+   "date_args": [
+    0,
+    1
+   ],
+   "func": "on_new_cycle_added",
+   "kwargs": {},
+   "module": "app.algo.bayesian"
+  },
+  "name": "on_new_cycle-deviating"
+ }
+]

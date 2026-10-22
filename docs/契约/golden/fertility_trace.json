@@ -1,0 +1,413 @@
+[
+ {
+  "expect": {
+   "available": true,
+   "basis": "calendar_rule",
+   "current_period_predicted_end": "2026-01-12",
+   "fertile_window": {
+    "end": "2026-01-21",
+    "start": "2026-01-15"
+   },
+   "less_certain_windows": [
+    {
+     "basis": "actual",
+     "end": "2026-01-14",
+     "phase": "follicular",
+     "start": "2026-01-13"
+    },
+    {
+     "basis": null,
+     "end": "2026-02-02",
+     "phase": "luteal",
+     "start": "2026-01-22"
+    }
+   ],
+   "next_period_predicted_end": "2026-02-07",
+   "ovulation_date": "2026-01-20",
+   "ovulation_sigma_days": 2.5,
+   "predicted_period_days": 5,
+   "predicted_period_windows": [
+    {
+     "end": "2026-02-07",
+     "start": "2026-02-03"
+    }
+   ]
+  },
+  "input": {
+   "args": [
+    "2026-02-03",
+    "2026-01-06",
+    "2026-01-12",
+    2.5
+   ],
+   "date_args": [
+    0,
+    1,
+    2
+   ],
+   "func": "compute_fertility_window",
+   "kwargs": {
+    "predicted_period_days": 5
+   },
+   "module": "app.algo.fertility"
+  },
+  "name": "fert-all-dates"
+ },
+ {
+  "expect": {
+   "available": false,
+   "basis": "calendar_rule",
+   "current_period_predicted_end": null,
+   "fertile_window": null,
+   "less_certain_windows": [],
+   "next_period_predicted_end": null,
+   "ovulation_date": null,
+   "ovulation_sigma_days": 0.0,
+   "predicted_period_days": null,
+   "predicted_period_windows": []
+  },
+  "input": {
+   "args": [
+    "2026-02-03",
+    null,
+    null,
+    2.5
+   ],
+   "date_args": [
+    0
+   ],
+   "func": "compute_fertility_window",
+   "kwargs": {},
+   "module": "app.algo.fertility"
+  },
+  "name": "fert-no-current"
+ },
+ {
+  "expect": {
+   "available": false,
+   "basis": "calendar_rule",
+   "current_period_predicted_end": null,
+   "fertile_window": null,
+   "less_certain_windows": [],
+   "next_period_predicted_end": null,
+   "ovulation_date": null,
+   "ovulation_sigma_days": 0.0,
+   "predicted_period_days": null,
+   "predicted_period_windows": []
+  },
+  "input": {
+   "args": [
+    null,
+    "2026-01-06",
+    "2026-01-12",
+    7.0
+   ],
+   "date_args": [
+    1,
+    2
+   ],
+   "func": "compute_fertility_window",
+   "kwargs": {},
+   "module": "app.algo.fertility"
+  },
+  "name": "fert-predicted-none"
+ },
+ {
+  "expect": {
+   "available": true,
+   "basis": "calendar_rule",
+   "current_period_predicted_end": null,
+   "fertile_window": {
+    "end": "2026-01-21",
+    "start": "2026-01-15"
+   },
+   "less_certain_windows": [
+    {
+     "basis": null,
+     "end": "2026-02-02",
+     "phase": "luteal",
+     "start": "2026-01-22"
+    }
+   ],
+   "next_period_predicted_end": null,
+   "ovulation_date": "2026-01-20",
+   "ovulation_sigma_days": 9.75,
+   "predicted_period_days": null,
+   "predicted_period_windows": []
+  },
+  "input": {
+   "args": [
+    "2026-02-03",
+    "2026-01-06",
+    null,
+    9.75
+   ],
+   "date_args": [
+    0,
+    1
+   ],
+   "func": "compute_fertility_window",
+   "kwargs": {},
+   "module": "app.algo.fertility"
+  },
+  "name": "fert-high-std"
+ },
+ {
+  "expect": {
+   "algorithm_stage": "empty",
+   "bayes_applied": false,
+   "final_prediction": {
+    "confidence": 0.4,
+    "interval": 10.5,
+    "predicted_cycle_length": 28.0,
+    "std": 7.0
+   },
+   "model_version": "cold_start_1",
+   "n": 0,
+   "steps": [
+    {
+     "description": "最近6次周期加权平均，异常值按偏离程度降权而非丢弃",
+     "formula": "weighted_mean(cycles, N=6, decay=0.85, robust_weights)",
+     "name": "加权平均",
+     "step": 1,
+     "value": 28.0
+    },
+    {
+     "description": "EMA学习率0.3；无合法周期（n=0），EMA 保持 28.0 不更新",
+     "formula": "ema_update(prev=28.0, new=None, alpha=0.3)",
+     "name": "EMA更新",
+     "step": 2,
+     "value": 28.0
+    },
+    {
+     "description": "尚无有效周期（只有锚点记录），使用先验默认值28天",
+     "formula": "先验均值 28.0（冷启动，无周期数据）",
+     "name": "融合预测",
+     "step": 3,
+     "value": 28.0
+    },
+    {
+     "description": "无周期数据，后验退化为先验均值（与实际预测一致）",
+     "formula": "无合法周期 → 不执行共轭后验与附加收缩，直接取先验均值 28.0",
+     "name": "贝叶斯调整",
+     "step": 4,
+     "value": 28.0
+    },
+    {
+     "description": "标准差7.0（加权，含降权样本），区间半宽10.5天；未叠加展宽修正（区间 = std·INTERVAL_STD_MULT：冷启动，有效周期不足 2 个）",
+     "formula": "std=7.0, mult=1.5（未叠加展宽修正：冷启动，有效周期不足 2 个）, n_eff修正=1.0",
+     "name": "预测区间",
+     "step": 5,
+     "value": "28.0 ± 10.5 天"
+    },
+    {
+     "description": "标准差越小置信度越高",
+     "formula": "冷启动置信度 0.4（无有效周期，按 1 条记录档）",
+     "name": "置信度",
+     "step": 6,
+     "value": 0.4
+    }
+   ]
+  },
+  "input": {
+   "args": [
+    "2026-01-06",
+    [],
+    null,
+    {
+     "cycle_lengths": [
+      28.0,
+      30.0,
+      31.0,
+      26.0,
+      29.0
+     ],
+     "ema_cycle": 29.4,
+     "mean_cycle": 29.5,
+     "n_records": 5,
+     "prior_mean": 28.0,
+     "prior_std": 7.0,
+     "prior_weight": 0.5,
+     "std_cycle": 2.5
+    }
+   ],
+   "func": "prediction_trace",
+   "kwargs": {},
+   "module": "app.algo.trace"
+  },
+  "name": "trace-n0"
+ },
+ {
+  "expect": {
+   "algorithm_stage": "cold_2",
+   "bayes_applied": false,
+   "final_prediction": {
+    "confidence": 0.857,
+    "interval": 3.7,
+    "predicted_cycle_length": 28.89,
+    "std": 2.0
+   },
+   "model_version": "bayesian_v1",
+   "n": 2,
+   "steps": [
+    {
+     "description": "最近6次周期加权平均，异常值按偏离程度降权而非丢弃（28×1.00, 30×1.00）",
+     "formula": "weighted_mean(cycles, N=6, decay=0.85, robust_weights)",
+     "name": "加权平均",
+     "step": 1,
+     "value": 29.08
+    },
+    {
+     "description": "EMA学习率0.3",
+     "formula": "ema_update(prev=28.0, new=30.0, alpha=0.3)",
+     "name": "EMA更新",
+     "step": 2,
+     "value": 28.6
+    },
+    {
+     "description": "加权平均与EMA的加权融合（冷启动 n=2，本值即为最终预测）",
+     "formula": "(1-0.4)*29.08 + 0.4*28.6",
+     "name": "融合预测",
+     "step": 3,
+     "value": 28.89
+    },
+    {
+     "description": "标准差2.0（加权，含降权样本），区间半宽3.7天；含小样本不确定性展宽 √(1+1/n_eff)（F4 校准）",
+     "formula": "std=2.0, mult=1.5（irr=0，无附加展宽）, n_eff修正=1.225",
+     "name": "预测区间",
+     "step": 5,
+     "value": "28.9 ± 3.7 天"
+    },
+    {
+     "description": "标准差越小置信度越高",
+     "formula": "clamp(1.0 - 2.0/14.0, 0.3, 0.95)",
+     "name": "置信度",
+     "step": 6,
+     "value": 0.857
+    }
+   ]
+  },
+  "input": {
+   "args": [
+    "2026-02-03",
+    [
+     28.0,
+     30.0
+    ],
+    null,
+    {
+     "cycle_lengths": [
+      28.0,
+      30.0,
+      31.0,
+      26.0,
+      29.0
+     ],
+     "ema_cycle": 29.4,
+     "mean_cycle": 29.5,
+     "n_records": 5,
+     "prior_mean": 28.0,
+     "prior_std": 7.0,
+     "prior_weight": 0.5,
+     "std_cycle": 2.5
+    }
+   ],
+   "func": "prediction_trace",
+   "kwargs": {},
+   "module": "app.algo.trace"
+  },
+  "name": "trace-n2"
+ },
+ {
+  "expect": {
+   "algorithm_stage": "bayesian",
+   "bayes_applied": true,
+   "final_prediction": {
+    "confidence": 0.827,
+    "interval": 3.9,
+    "predicted_cycle_length": 29.71,
+    "std": 2.43
+   },
+   "model_version": "bayesian_v1",
+   "n": 6,
+   "steps": [
+    {
+     "description": "最近6次周期加权平均，异常值按偏离程度降权而非丢弃（28×1.00, 30×1.00, 31×1.00, 26×0.99, 29×1.00, 33×0.99）",
+     "formula": "weighted_mean(cycles, N=6, decay=0.85, robust_weights)",
+     "name": "加权平均",
+     "step": 1,
+     "value": 29.76
+    },
+    {
+     "description": "EMA学习率0.3",
+     "formula": "ema_update(prev=29.4, new=33.0, alpha=0.3)",
+     "name": "EMA更新",
+     "step": 2,
+     "value": 30.48
+    },
+    {
+     "description": "加权平均与EMA的加权融合 —— **仅供审计**：n≥3 时最终预测由下一步直接对历史周期求共轭后验，不使用本值",
+     "formula": "(1-0.4)*29.76 + 0.4*30.48（未进入最终预测）",
+     "name": "融合预测",
+     "step": 3,
+     "value": 30.05
+    },
+    {
+     "description": "共轭后验均值即为最终预测周期：窗口离散度低于规律阈值 3.0 天，不附加先验收缩（本步直接对全部 6 个合法周期求后验，不消费上一步的融合值 30.05；后验权重＝鲁棒降权×时间衰减 0.85，后验有效样本量 5.58；审计用先验权重 45.5%——本档离散度未达附加收缩阈值，该权重只作审计、不进入点预测）",
+     "formula": "normal_conjugate_posterior(mu_0=28.0, sigma_0=7.0, obs=全部合法周期(6个), w=robust_weights×decay^Δ(0.85), n_eff=5.58)",
+     "name": "贝叶斯调整",
+     "step": 4,
+     "value": 29.71
+    },
+    {
+     "description": "标准差2.43（加权，含降权样本），区间半宽3.9天；含小样本不确定性展宽 √(1+1/n_eff)（F4 校准）",
+     "formula": "std=2.43, mult=1.5（irr=0，无附加展宽）, n_eff修正=1.08",
+     "name": "预测区间",
+     "step": 5,
+     "value": "29.7 ± 3.9 天"
+    },
+    {
+     "description": "标准差越小置信度越高",
+     "formula": "clamp(1.0 - 2.43/14.0, 0.3, 0.95)",
+     "name": "置信度",
+     "step": 6,
+     "value": 0.827
+    }
+   ]
+  },
+  "input": {
+   "args": [
+    "2026-03-05",
+    [
+     28.0,
+     30.0,
+     31.0,
+     26.0,
+     29.0,
+     33.0
+    ],
+    29.4,
+    {
+     "cycle_lengths": [
+      28.0,
+      30.0,
+      31.0,
+      26.0,
+      29.0
+     ],
+     "ema_cycle": 29.4,
+     "mean_cycle": 29.5,
+     "n_records": 5,
+     "prior_mean": 28.0,
+     "prior_std": 7.0,
+     "prior_weight": 0.5,
+     "std_cycle": 2.5
+    }
+   ],
+   "func": "prediction_trace",
+   "kwargs": {},
+   "module": "app.algo.trace"
+  },
+  "name": "trace-n6"
+ }
+]

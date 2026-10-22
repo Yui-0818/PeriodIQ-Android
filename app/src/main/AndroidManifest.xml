@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- R1 红线：本工程**不声明** android.permission.INTERNET，任何联网能力都没有（AGENTS.md §5.4）。 -->
+    <!-- R11（用户 2026-10-19 批准）只加两条：POST_NOTIFICATIONS（到点弹通知，API 33+ 是运行时权限）
+         与 RECEIVE_BOOT_COMPLETED（开机把闹钟按落盘计划挂回去）。其余权限一律不加。 -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- 组件清单：1 个 Activity（launcher 必须 exported=true）+ 1 个提醒接收器（exported=false：
+         它只收三条受保护的系统广播与自家的显式闹钟意图，不对外提供能力）。 -->
+    <!-- 竖屏锁定（用户 2026-10-11 裁定：安卓端不设计横屏、不需要横屏 ⇒ 见 AGENTS.md §3.3.2）。 -->
+    <!-- 图标（2026-10-10 加）：API 26+ 走 mipmap-anydpi-v26/ic_launcher.xml（自适应：前景 drawable + 背景色，
+         圆角交给系统遮罩，不在资源里预切）；低版本走 mipmap-*/ic_launcher.png；round 变体供圆形遮罩启动器。
+         R11 另加 res/drawable/ic_stat_periodiq_reminder.xml（单色状态栏小图标，不用彩色 launcher 图）。 -->
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="PeriodIQ"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 导出文件只读通道（R13.3）：不对外暴露，只按次授予单 URI 只读权限。 -->
+        <provider
+            android:name=".PiqExportProvider"
+            android:authorities="${applicationId}.exports"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+
+        <!-- 到点发通知（ACTION_REMIND）+ 开机/时区变化/改表之后把闹钟挂回去。
+             四类闹钟各用一个 requestCode，见 PiqReminderPlan。 -->
+        <receiver
+            android:name=".PiqReminderReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="io.github.yui0818.periodiq.action.REMIND" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

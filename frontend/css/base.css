@@ -1,0 +1,75 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; overflow: hidden; }
+html { background: var(--piq-color-bg); }
+body {
+  background: var(--piq-color-bg);
+  color: var(--piq-color-text);
+  font-family: var(--piq-font-body);
+  font-size: var(--piq-text-body);
+  line-height: var(--piq-line-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: var(--piq-color-accent-text); text-decoration: none; }
+img { display: block; max-width: 100%; }
+h1, h2, h3, p { margin: 0; }
+::selection { background: var(--piq-color-accent-soft); color: var(--piq-color-text); }
+:focus { outline: none; }
+:focus-visible { box-shadow: var(--piq-focus-ring); border-radius: var(--piq-radius-sm); }
+#app {
+  position: fixed;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--piq-color-bg-gradient);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+#app::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--piq-inset-top, 0px);
+  background: var(--piq-color-bg);
+  z-index: calc(var(--piq-z-appbar) - 1);
+  pointer-events: none;
+}
+#app.login-mode::before { display: none; }
+.view {
+  width: 100%;
+  max-width: var(--piq-content-max);
+  margin: 0 auto;
+  padding: calc(var(--piq-space-2) + var(--piq-inset-top, 0px)) var(--piq-gutter);
+  padding-bottom: calc(var(--piq-tabbar-h) + var(--piq-inset-bottom, 0px) + var(--piq-space-6));
+  min-height: 60vh;
+}
+.page-enter { animation: page-in var(--piq-dur-base) var(--piq-ease-standard) both; }
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(var(--piq-motion-distance)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: var(--piq-dur-reduced) !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--piq-dur-reduced) !important;
+  }
+  .app-dim .view { transform: none; }
+  .skeleton { animation: none; }
+}

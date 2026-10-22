@@ -1,0 +1,162 @@
+[
+  {
+    "expect": {
+      "confidence": 0.8571,
+      "model_params": {
+        "bayes_applied": true,
+        "dropped_illegal": 0,
+        "ema_cycle": 31.959,
+        "mean_cycle": 32.0154,
+        "n_eff": 5.0,
+        "n_records": 5,
+        "prior_weight": 0.5,
+        "shrink_irregularity": 0.0,
+        "std_cycle": 2.0
+      },
+      "model_version": "bayesian_v1",
+      "predicted_date": "2027-12-22",
+      "predicted_start_lower": "2027-12-19",
+      "predicted_start_upper": "2027-12-25"
+    },
+    "input": {
+      "args": [
+        "2027-11-20",
+        [
+          33,
+          31,
+          30,
+          33,
+          33
+        ],
+        31.512849999999993
+      ],
+      "date_args": [
+        0
+      ],
+      "func": "predict_next_period",
+      "kwargs": {},
+      "module": "app.algo.stats"
+    },
+    "name": "real6-shift411-predict-next-period"
+  },
+  {
+    "expect": {
+      "bias": 1.0,
+      "evaluated": 5,
+      "hit_rate_pm1": 0.4,
+      "hit_rate_pm2": 0.8,
+      "hit_rate_pm3": 0.8,
+      "hit_rate_pm5": 1.0,
+      "hit_rate_pm7": 1.0,
+      "interval_coverage": 1.0,
+      "mae": 2.2,
+      "total_predictions": 6,
+      "trend": "improving"
+    },
+    "input": {
+      "args": [
+        [
+          {
+            "actual_date": "2027-07-16",
+            "predicted_date": "2027-07-11",
+            "predicted_start_lower": "2027-07-01",
+            "predicted_start_upper": "2027-07-21"
+          },
+          {
+            "actual_date": "2027-08-16",
+            "predicted_date": "2027-08-18",
+            "predicted_start_lower": "2027-08-08",
+            "predicted_start_upper": "2027-08-28"
+          },
+          {
+            "actual_date": "2027-09-15",
+            "predicted_date": "2027-09-16",
+            "predicted_start_lower": "2027-09-13",
+            "predicted_start_upper": "2027-09-19"
+          },
+          {
+            "actual_date": "2027-10-18",
+            "predicted_date": "2027-10-16",
+            "predicted_start_lower": "2027-10-13",
+            "predicted_start_upper": "2027-10-19"
+          },
+          {
+            "actual_date": "2027-11-20",
+            "predicted_date": "2027-11-19",
+            "predicted_start_lower": "2027-11-16",
+            "predicted_start_upper": "2027-11-22"
+          },
+          {
+            "actual_date": null,
+            "predicted_date": "2027-12-22",
+            "predicted_start_lower": "2027-12-19",
+            "predicted_start_upper": "2027-12-25"
+          }
+        ]
+      ],
+      "date_args": [],
+      "func": "evaluate_predictions",
+      "kwargs": {},
+      "module": "app.algo.eval"
+    },
+    "name": "real6-shift411-eval-accuracy"
+  },
+  {
+    "expect": {
+      "available": true,
+      "basis": "calendar_rule",
+      "current_period_predicted_end": "2027-11-27",
+      "fertile_window": {
+        "end": "2027-12-09",
+        "start": "2027-12-03"
+      },
+      "less_certain_windows": [
+        {
+          "basis": "predicted",
+          "end": "2027-12-02",
+          "phase": "follicular",
+          "start": "2027-11-28"
+        },
+        {
+          "basis": null,
+          "end": "2027-12-21",
+          "phase": "luteal",
+          "start": "2027-12-10"
+        }
+      ],
+      "next_period_predicted_end": "2027-12-29",
+      "ovulation_date": "2027-12-08",
+      "ovulation_sigma_days": 2.0,
+      "predicted_period_days": 8,
+      "predicted_period_windows": [
+        {
+          "end": "2027-11-27",
+          "start": "2027-11-20"
+        },
+        {
+          "end": "2027-12-29",
+          "start": "2027-12-22"
+        }
+      ]
+    },
+    "input": {
+      "args": [
+        "2027-12-22",
+        "2027-11-20",
+        null,
+        2.0
+      ],
+      "date_args": [
+        0,
+        1,
+        2
+      ],
+      "func": "compute_fertility_window",
+      "kwargs": {
+        "predicted_period_days": 8
+      },
+      "module": "app.algo.fertility"
+    },
+    "name": "real6-shift411-fertility-window"
+  }
+]
