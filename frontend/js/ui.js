@@ -7,7 +7,13 @@
     today: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8ZM12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4',
     calendar: 'M4 6h16v14H4zM8 3v4M16 3v4M4 10h16',
     history: 'M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4M12 8v4l3 2',
-    analysis: 'M4 20V11M10 20V4M16 20v-6M22 20H2'
+    analysis: 'M4 20V11M10 20V4M16 20v-6M22 20H2',
+    profile: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4 21c0-4 3.6-7 8-7s8 3 8 7',
+    record: 'M4 6h16v14H4zM8 3v4M16 3v4M4 10h16M15 15l-4 4-2-2',
+    sun: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8ZM12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4',
+    moon: 'M20 14.5A8 8 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z',
+    system: 'M4 5h16v10H4zM8 20h8M12 15v5',
+    check: 'M5 12l4 4L19 6'
   };
   var modalStack = [];
   var pendingBacks = 0;

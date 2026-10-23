@@ -8,6 +8,8 @@
   height: var(--piq-appbar-h);
   padding: 0 var(--piq-gutter);
   background: var(--piq-topbar-bg);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 .topbar-title {
   flex: 1;
@@ -15,9 +17,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: var(--piq-text-h2);
+  font-family: var(--piq-font-display);
+  font-size: 22px;
   line-height: var(--piq-line-h2);
   font-weight: var(--piq-weight-semibold);
+  letter-spacing: -.01em;
   color: var(--piq-color-text);
 }
 .topbar-action {
@@ -29,26 +33,14 @@
   color: var(--piq-color-text);
   font-size: var(--piq-text-h1);
 }
-.topbar-back { font-size: var(--piq-text-h1); line-height: 1; }
+.topbar-back { font-size: 26px; line-height: 1; font-weight: 300; }
 .subpage .topbar { gap: 0; }
-.subpage .topbar-title { font-size: var(--piq-text-h3); line-height: var(--piq-line-h3); padding-left: var(--piq-space-1); }
-.avatar {
-  width: var(--piq-avatar-hit);
-  height: var(--piq-avatar-hit);
-  display: grid;
-  place-items: center;
-  border-radius: var(--piq-radius-pill);
-}
-.avatar-mark {
-  width: var(--piq-avatar-mark);
-  height: var(--piq-avatar-mark);
-  display: grid;
-  place-items: center;
-  border-radius: var(--piq-radius-pill);
-  background: var(--piq-color-accent-soft);
-  color: var(--piq-color-accent-text);
-  font-size: var(--piq-text-secondary);
+.subpage .topbar-title {
+  font-family: var(--piq-font-body);
+  font-size: var(--piq-text-h3);
+  line-height: var(--piq-line-h3);
   font-weight: var(--piq-weight-semibold);
+  padding-left: var(--piq-space-1);
 }
 .bottom-scrim {
   position: fixed;
@@ -62,16 +54,15 @@
 }
 .bottom-nav {
   position: fixed;
-  left: clamp(var(--piq-space-4), 12vw, var(--piq-tap));
-  right: clamp(var(--piq-space-4), 12vw, var(--piq-tap));
+  left: 12px;
+  right: 12px;
   bottom: calc(var(--piq-inset-bottom, 0px) + var(--piq-space-2));
   height: var(--piq-tabbar-h);
   display: flex;
-  align-items: center;
-  gap: var(--piq-space-2);
-  padding: 0;
+  align-items: stretch;
+  padding: 6px;
   border: var(--piq-glass-bar-border);
-  border-radius: var(--piq-radius-sheet);
+  border-radius: 22px;
   background: var(--piq-glass-bar-bg);
   -webkit-backdrop-filter: var(--piq-glass-bar-blur);
   backdrop-filter: var(--piq-glass-bar-blur);
@@ -79,62 +70,103 @@
   z-index: var(--piq-z-tabbar);
   transition: transform var(--piq-dur-exit) var(--piq-ease-exit), opacity var(--piq-dur-exit) var(--piq-ease-exit);
 }
+/* 玻璃内部只画边缘（上缘亮线 + 底部暖色 caustic），不铺整块填充，避免挡住背后内容。 */
+.bottom-nav::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: var(--piq-glass-bar-caustic);
+  pointer-events: none;
+}
 .tab-items {
   flex: 1;
   min-width: 0;
-  height: 100%;
-  display: flex;
-  align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 2px;
 }
 .tab {
-  flex: 1;
-  min-width: var(--piq-tap);
+  position: relative;
+  z-index: 1;
+  min-width: 0;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--piq-space-1);
+  gap: 2px;
+  border-radius: 16px;
   color: var(--piq-color-text-secondary);
-  border-radius: var(--piq-radius-control);
+  transition: color var(--piq-dur-fast) var(--piq-ease-standard);
 }
 .tab-icon {
-  width: var(--piq-active-pill-w);
-  height: var(--piq-active-pill-h);
+  position: relative;
+  z-index: 2;
+  width: var(--piq-tab-icon-w);
+  height: var(--piq-tab-icon-h);
   display: grid;
   place-items: center;
-  border-radius: var(--piq-radius-pill);
   color: var(--piq-color-text-secondary);
+  transition: color var(--piq-dur-fast) var(--piq-ease-standard), transform var(--piq-dur-fast) var(--piq-ease-standard);
 }
-.tab-icon svg { width: var(--piq-icon-size); height: var(--piq-icon-size); }
+.tab-icon svg {
+  position: relative;
+  z-index: 2;
+  width: var(--piq-icon-size);
+  height: var(--piq-icon-size);
+  stroke-width: 1.7;
+}
 .tab-label {
+  position: relative;
+  z-index: 2;
   font-size: var(--piq-text-tab);
   line-height: var(--piq-line-tab);
   font-weight: var(--piq-weight-medium);
   white-space: nowrap;
+  text-shadow: var(--piq-tab-label-shadow);
 }
 .tab[aria-current="page"] .tab-icon {
-  background: var(--piq-color-accent-soft);
   color: var(--piq-color-accent-text);
+  transform: translateY(1px);
 }
-.tab[aria-current="page"] .tab-label { color: var(--piq-color-text); }
-.tab:active { transform: scale(.96); }
-.fab {
-  flex: none;
-  width: var(--piq-fab);
-  height: var(--piq-fab);
-  margin-right: var(--piq-space-2);
-  display: grid;
-  place-items: center;
-  border-radius: var(--piq-radius-pill);
-  background: var(--piq-color-primary);
-  color: var(--piq-color-on-primary);
-  font-size: var(--piq-text-h1);
-  line-height: 1;
-  transition: transform var(--piq-dur-fast) var(--piq-ease-standard);
+.tab[aria-current="page"] .tab-label { color: var(--piq-color-text); font-weight: var(--piq-weight-semibold); }
+.tab:active { transform: scale(.97); }
+
+/* 选中项 = 液态玻璃圆角矩形：覆盖图标 + 文字，圆角矩形（非椭圆），全站唯一一处折射。
+   位移图 #piq-pill-lens 做中心轻微放大 + 边缘强压缩；自身只留极低填充、细边、
+   顶部镜面弧、底部金色水光与 1px 冷暖色散边，避免读成白色珍珠。 */
+.tab[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  inset: var(--piq-tab-pill-inset-y) var(--piq-tab-pill-inset-x);
+  z-index: 0;
+  border-radius: var(--piq-tab-pill-radius);
+  border: 1px solid var(--piq-pill-border);
+  background: var(--piq-pill-surface);
+  box-shadow: var(--piq-pill-shadow);
+  -webkit-backdrop-filter: url(#piq-pill-lens);
+  backdrop-filter: url(#piq-pill-lens);
+  pointer-events: none;
+  animation: tab-pill-in var(--piq-dur-base) var(--piq-ease-standard) both;
 }
-.fab:active { transform: scale(.96); background: var(--piq-color-primary-pressed); }
-.app-dim .view { transform: scale(.98); }
+/* 镜面弧与暖色水光放在图标之下（z-index 1 < 内容 2），不糊住描边。 */
+.tab[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  inset: var(--piq-tab-pill-inset-y) var(--piq-tab-pill-inset-x);
+  z-index: 1;
+  border-radius: var(--piq-tab-pill-radius);
+  background: var(--piq-pill-arcs);
+  pointer-events: none;
+  animation: tab-pill-in var(--piq-dur-base) var(--piq-ease-standard) both;
+}
+@keyframes tab-pill-in {
+  from { opacity: 0; transform: scale(.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+.app-dim .view { transform: scale(.99); }
 .app-dim .view, .app-dim .topbar {
   transition: transform var(--piq-dur-sheet) var(--piq-ease-standard);
 }
@@ -159,18 +191,21 @@
 @media (max-height: 640px) {
   :root {
     --piq-tabbar-h: var(--piq-tabbar-h-short);
-    --piq-fab: var(--piq-fab-short);
-    --piq-radius-sheet: var(--piq-tabbar-short-radius);
+    --piq-ring-size: 190px;
+    --piq-appbar-h: 48px;
     --piq-icon-size: var(--piq-icon-short);
-    --piq-ring-size: 160px;
+    --piq-tab-icon-h: 24px;
+    /* 58px 底栏内高只剩 46px：胶囊纵向只留 1px 边，仍要完整包住图标 + 文字。 */
+    --piq-tab-pill-inset-y: 1px;
+    --piq-tab-pill-inset-x: 4px;
+    --piq-tab-pill-radius: 16px;
   }
   .bottom-nav { border-radius: var(--piq-tabbar-short-radius); }
-  .hero.has-advice { height: auto; padding: var(--piq-space-4) 0; }
 }
 @media (min-height: 641px) and (max-height: 700px) {
-  :root { --piq-ring-size: 160px; }
-  .hero.has-advice { height: auto; padding: var(--piq-space-4) 0; }
+  :root { --piq-ring-size: 198px; }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .bottom-nav { background: var(--piq-glass-fallback); }
+  .tab[aria-current="page"]::before { background: var(--piq-glass-fallback); }
 }

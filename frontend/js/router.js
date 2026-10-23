@@ -6,7 +6,8 @@
     calendar: { path: '/calendar', title: '日历', main: true },
     history: { path: '/history', title: '历史', main: true },
     analysis: { path: '/analysis', title: '分析', main: true },
-    profile: { path: '/profile', title: '我的' },
+    profile: { path: '/profile', title: '我的', main: true },
+    'settings/appearance': { path: '/settings/appearance', title: '外观', parent: 'profile' },
     'settings/notifications': { path: '/settings/notifications', title: '通知提醒', parent: 'profile' },
     'settings/data': { path: '/settings/data', title: '数据管理', parent: 'profile' },
     'settings/data/import': { path: '/settings/data/import', title: '导入数据', parent: 'settings/data' },
@@ -108,7 +109,8 @@
       { name: 'today', icon: 'today' },
       { name: 'calendar', icon: 'calendar' },
       { name: 'history', icon: 'history' },
-      { name: 'analysis', icon: 'analysis' }
+      { name: 'analysis', icon: 'analysis' },
+      { name: 'profile', icon: 'profile' }
     ],
     current: current,
     canonicalize: canonicalize,

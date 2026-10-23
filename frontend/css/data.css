@@ -1,9 +1,11 @@
-/* R14.2a：历史 / 分析 / 共用 SVG 图表。 */
-.data-page { gap: var(--piq-space-6); }
+/* 历史 / 分析 / 共用 SVG 图表。 */
+.data-page { gap: 22px; }
 .data-kicker {
   font-size: var(--piq-text-kicker);
   line-height: var(--piq-line-caption);
   font-weight: var(--piq-weight-semibold);
+  letter-spacing: .14em;
+  text-transform: uppercase;
   color: var(--piq-color-text-tertiary);
 }
 .data-desc { font-size: var(--piq-text-secondary); line-height: var(--piq-line-secondary); color: var(--piq-color-text-secondary); }
@@ -27,12 +29,12 @@
   border-radius: 0;
 }
 .history-row + .history-row { border-top: 1px solid var(--piq-color-border); }
-.history-row:active { background: var(--piq-color-surface-alt); }
+.history-row:active { background: var(--piq-color-accent-soft); }
 .history-row:focus-visible { outline: 2px solid var(--piq-color-focus); outline-offset: -2px; box-shadow: none; }
-.history-date { display: grid; justify-items: start; gap: var(--piq-space-1); }
-.history-day { font-size: var(--piq-text-h1); line-height: 1; font-weight: var(--piq-weight-semibold); font-variant-numeric: tabular-nums; }
+.history-date { display: grid; justify-items: start; gap: 2px; }
+.history-day { font-family: var(--piq-font-display); font-size: 25px; line-height: 1; font-weight: var(--piq-weight-semibold); font-variant-numeric: tabular-nums; }
 .history-weekday { font-size: var(--piq-text-caption); line-height: var(--piq-line-caption); color: var(--piq-color-text-secondary); }
-.history-main { min-width: 0; display: grid; gap: var(--piq-space-1); }
+.history-main { min-width: 0; display: grid; gap: 2px; }
 .history-period { font-size: var(--piq-text-secondary); line-height: var(--piq-line-secondary); }
 .history-note {
   overflow: hidden;
@@ -42,39 +44,113 @@
   line-height: var(--piq-line-caption);
   color: var(--piq-color-text-tertiary);
 }
-.history-right { display: grid; justify-items: end; gap: var(--piq-space-1); }
+.history-right { display: grid; justify-items: end; gap: 2px; }
 .history-length-cap { font-size: var(--piq-text-caption); color: var(--piq-color-text-tertiary); }
 .history-length-value { font-size: var(--piq-text-h3); line-height: var(--piq-line-h3); font-weight: var(--piq-weight-semibold); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.history-anomaly { margin-top: var(--piq-space-1); }
+.history-anomaly { margin-top: 2px; }
 
 .chart-card { padding: var(--piq-space-4); }
 .chart-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--piq-space-2); margin-bottom: var(--piq-space-2); }
 .chart-meta { font-size: var(--piq-text-caption); color: var(--piq-color-text-tertiary); white-space: nowrap; }
 .chart-note { margin-top: var(--piq-space-2); font-size: var(--piq-text-caption); line-height: var(--piq-line-caption); color: var(--piq-color-text-tertiary); }
 .chart { margin: 0; width: 100%; }
-.chart-svg { display: block; width: 100%; height: auto; overflow: visible; }
-.chart-grid { stroke: var(--piq-chart-grid); stroke-width: var(--piq-chart-grid-stroke); }
-.chart-zero { stroke: var(--piq-color-border-strong); stroke-width: var(--piq-chart-grid-stroke); }
-.chart-axis { fill: var(--piq-color-text-tertiary); font-size: var(--piq-text-caption); font-variant-numeric: tabular-nums; }
-.chart-ref-label { fill: var(--piq-color-gold-text); font-size: var(--piq-text-caption); }
+
+/* Lupi 编辑部语法：发丝线、账本格、记录点与直接标注；颜色仍取暖纸/金棕。 */
+.chart-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  color: var(--piq-color-accent-text);
+  --piq-chart-ease-out: cubic-bezier(.25, 1, .5, 1);
+}
+.chart-grid {
+  stroke: var(--piq-chart-grid);
+  stroke-width: .75;
+  stroke-dasharray: 1 5;
+  stroke-linecap: round;
+}
+.chart-baseline { stroke: var(--piq-color-border-strong); stroke-width: 1; }
+.chart-guide { stroke: var(--piq-color-border); stroke-width: .75; }
+.chart-axis {
+  fill: var(--piq-color-text-secondary);
+  font-size: var(--piq-text-caption);
+  font-weight: var(--piq-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
 .chart-line {
   stroke: var(--piq-color-accent-text);
-  stroke-width: var(--piq-chart-stroke);
+  stroke-width: 1;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: chart-line-in var(--piq-dur-enter) var(--piq-ease-standard) forwards;
+  animation: chart-line-in 620ms var(--piq-chart-ease-out, cubic-bezier(.25, 1, .5, 1)) 40ms forwards;
 }
-.chart-dot { fill: var(--piq-color-accent-text); stroke: var(--piq-color-bg); stroke-width: var(--piq-chart-dot-stroke); }
-.chart-average { stroke: var(--piq-chart-reference); stroke-width: var(--piq-chart-grid-stroke); stroke-dasharray: var(--piq-chart-dash); }
-.chart-ref { stroke: var(--piq-chart-reference); stroke-width: var(--piq-chart-grid-stroke); stroke-dasharray: var(--piq-chart-dash); }
+/* 记录条：一条账本发丝线 + 点在线上；上下浅虚线只是节奏，不填充、不描边成箱。 */
+.chart-strip-rule { stroke: var(--piq-color-border-strong); stroke-width: 1; }
+.chart-strip-note {
+  fill: var(--piq-color-text-tertiary);
+  font-size: 9px;
+  letter-spacing: .04em;
+  font-variant-numeric: tabular-nums;
+  paint-order: stroke;
+  stroke: var(--piq-color-surface);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+}
+.chart-dot {
+  fill: var(--piq-color-accent-text);
+  stroke: var(--piq-color-surface);
+  stroke-width: 1.4;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: chart-dot-in 420ms var(--piq-chart-ease-out, cubic-bezier(.25, 1, .5, 1)) both;
+  animation-delay: calc(90ms + var(--i, 0) * 12ms);
+}
+.chart-dot-strip { stroke-width: 1.6; }
+.chart-value-label {
+  fill: var(--piq-color-text);
+  font-family: var(--piq-font-display);
+  font-size: 11px;
+  font-weight: var(--piq-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  paint-order: stroke;
+  stroke: var(--piq-color-surface);
+  stroke-width: 2.6;
+  stroke-linejoin: round;
+}
+.chart-ref-label {
+  fill: var(--piq-color-gold-text);
+  font-size: 9.5px;
+  letter-spacing: .04em;
+  font-variant-numeric: tabular-nums;
+  paint-order: stroke;
+  stroke: var(--piq-color-surface);
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+}
+.chart-average,
+.chart-ref {
+  stroke: var(--piq-chart-reference);
+  stroke-width: .9;
+  stroke-dasharray: var(--piq-chart-dash);
+}
 .chart-bar {
   fill: var(--piq-color-accent-text);
-  opacity: .85;
   transform-box: fill-box;
   transform-origin: center bottom;
-  animation: chart-bar-in var(--piq-dur-enter) var(--piq-ease-standard) both;
+  animation: chart-bar-in 520ms var(--piq-chart-ease-out, cubic-bezier(.25, 1, .5, 1)) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+.chart-annot {
+  margin-top: 4px;
+  text-align: right;
+  font-size: 9px;
+  line-height: 1.4;
+  letter-spacing: .14em;
+  color: var(--piq-color-text-tertiary);
+  font-variant-numeric: tabular-nums;
 }
 .chart-empty {
   min-height: var(--piq-chart-empty-min-h);
@@ -86,7 +162,16 @@
   color: var(--piq-color-text-tertiary);
 }
 @keyframes chart-line-in { to { stroke-dashoffset: 0; } }
+@keyframes chart-dot-in { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: scale(1); } }
 @keyframes chart-bar-in { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .chart-line,
+  .chart-dot,
+  .chart-bar { animation: none !important; }
+  .chart-line { stroke-dashoffset: 0; }
+  .chart-dot,
+  .chart-bar { opacity: 1; transform: none; }
+}
 
 .analysis-hero {
   display: flex;
@@ -94,10 +179,7 @@
   justify-content: space-between;
   gap: var(--piq-space-4);
   padding: var(--piq-space-5);
-  border: 1px solid var(--piq-color-border);
-  border-radius: var(--piq-radius-card);
-  background: var(--piq-glass-hero-bg);
-  box-shadow: var(--piq-shadow-1), var(--piq-glass-hero-highlight);
+  border-radius: 24px;
 }
 .analysis-hero-main { min-width: 0; display: grid; gap: var(--piq-space-2); }
 .analysis-avg-row { display: flex; align-items: baseline; gap: var(--piq-space-2); }
@@ -107,6 +189,7 @@
   line-height: var(--piq-line-display);
   font-weight: var(--piq-weight-semibold);
   font-variant-numeric: tabular-nums;
+  letter-spacing: -.02em;
 }
 .analysis-unit { font-size: var(--piq-text-h3); color: var(--piq-color-text-secondary); }
 .analysis-basis { font-size: var(--piq-text-secondary); line-height: var(--piq-line-secondary); color: var(--piq-color-text-secondary); }
@@ -121,8 +204,6 @@
   justify-content: space-between;
   gap: var(--piq-space-1);
   padding: var(--piq-space-3) var(--piq-space-4);
-  background: var(--piq-color-surface);
-  border: 1px solid var(--piq-color-border);
   border-radius: var(--piq-radius-control);
 }
 .kpi-label { font-size: var(--piq-text-caption); line-height: var(--piq-line-caption); color: var(--piq-color-text-secondary); }
@@ -166,7 +247,7 @@
   width: var(--piq-dot);
   height: var(--piq-dot);
   border-radius: var(--piq-radius-pill);
-  background: var(--piq-color-accent-text);
+  background: var(--piq-color-gold);
 }
 .clinical-item.is-attention { color: var(--piq-color-warning); }
 .clinical-item.is-attention::before { background: var(--piq-color-warning); }

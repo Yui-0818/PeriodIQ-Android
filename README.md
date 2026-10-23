@@ -2,7 +2,7 @@
 
 **本地优先的经期记录与预测。没有服务器，没有联网权限，数据只留在你的手机。**
 
-[下载 APK](https://github.com/Yui-0818/PeriodIQ-Android/releases/download/v2.0.0/PeriodIQ-2.0.0.apk) ·
+[下载 APK 2.1.0](https://github.com/Yui-0818/PeriodIQ-Android/releases/download/v2.1.0/PeriodIQ-2.1.0.apk) ·
 [所有版本](https://github.com/Yui-0818/PeriodIQ-Android/releases) ·
 [问题反馈](https://github.com/Yui-0818/PeriodIQ-Android/issues)
 
@@ -10,24 +10,39 @@
 
 ---
 
+## 2.1.0 · 视觉与交互重做
+
+- **白纸底色**：以近白纸色为底、香槟金点缀、衬线标题；浅色默认，深色可选，也可跟随系统。
+- **液态玻璃底栏**：底栏是透光玻璃；选中的 tab 是一枚圆角矩形液态玻璃胶囊，带真实折射与轻微放大，完整包住图标与文字。液态玻璃只出现在这里，其余界面是克制的简约玻璃板。
+- **今天页**：28 天分段周期环，环心可切换「周期第几天 / 距下次预测」；预测日期、区间与置信度合并在同一张卡里。
+- **周期台账日历**：发丝分隔、连续经期线、预测虚线、易孕点与排卵双环；左右滑动切换月份。
+- **曲线**：采用 Lupi 编辑语法——发丝线、记录点、直接标注与均值参考；数据少时不再强行画面积图。
+- **5 个主 tab，只做竖屏**：今天 / 日历 / 历史 / 分析 / 我的。
+
+---
+
 ## 预览
 
-| 今天 | 历史 | 分析 |
+| 今天（浅色） | 日历 | 分析 |
 |---|---|---|
-| ![今天](docs/screenshots/today.png) | ![历史](docs/screenshots/history.png) | ![分析](docs/screenshots/analysis.png) |
+| ![今天](docs/screenshots/today.png) | ![日历](docs/screenshots/calendar.png) | ![分析](docs/screenshots/analysis.png) |
+
+| 历史 | 我的 | 今天（深色） |
+|---|---|---|
+| ![历史](docs/screenshots/history.png) | ![我的](docs/screenshots/profile.png) | ![深色](docs/screenshots/today-dark.png) |
 
 ---
 
 ## 能做什么
 
 - **记录**：一次点击记录经期开始；可补结束日与备注，也可在应用内手动补录。
-- **日历**：经期、预计经期与易孕窗口在同一张月历上；点通知可直接回到日历。
+- **日历**：经期、预计经期、易孕窗口与排卵日落在同一张月历上；点提醒可直接回到日历。
 - **历史**：按月份分组，展示每次周期长度与走势。
 - **分析**：平均周期、平均经期、最短/最长周期、异常记录与预测误差；数据不足时明确显示冷启动。
 - **提醒**：提前 N 天（1/2/3/5/7）、当日、逾期提醒；锁屏只显示公开文案。
 - **数据**：JSON 完整备份、CSV 周期表导出；导入会替换本机数据，并带异常二次确认。
 - **隐私**：自动登录、修改密码、退出登录、删除账号；删除不可撤销。
-- **界面**：深色暖黑 + 玫瑰朱砂 + 香槟金，玻璃质感底栏与卡片；只做竖屏。
+- **外观**：浅色 / 深色 / 跟随系统；状态栏图标随外观切换。
 
 ---
 
@@ -46,7 +61,7 @@
 ## 安装
 
 - Android 8.0（API 26）及以上，`arm64-v8a` 设备。
-- 从 [Releases](https://github.com/Yui-0818/PeriodIQ-Android/releases) 下载唯一安装包 `PeriodIQ-2.0.0.apk`。
+- 仓库只提供一个安装包：[Releases](https://github.com/Yui-0818/PeriodIQ-Android/releases) 中的 `PeriodIQ-2.1.0.apk`。
 - 首次安装需允许「安装未知来源应用」。
 - 后续版本使用同一签名密钥，可直接覆盖安装并保留数据。
 

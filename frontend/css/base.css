@@ -15,7 +15,7 @@ button { background: none; border: 0; padding: 0; cursor: pointer; }
 a { color: var(--piq-color-accent-text); text-decoration: none; }
 img { display: block; max-width: 100%; }
 h1, h2, h3, p { margin: 0; }
-::selection { background: var(--piq-color-accent-soft); color: var(--piq-color-text); }
+::selection { background: var(--piq-color-accent-soft-strong); color: var(--piq-color-text); }
 :focus { outline: none; }
 :focus-visible { box-shadow: var(--piq-focus-ring); border-radius: var(--piq-radius-sm); }
 #app {
@@ -23,7 +23,10 @@ h1, h2, h3, p { margin: 0; }
   inset: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  background: var(--piq-color-bg-gradient);
+  background-color: var(--piq-color-bg);
+  background-image: var(--piq-noise), var(--piq-color-bg-gradient);
+  background-size: 140px 140px, cover;
+  background-blend-mode: soft-light, normal;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
 }
@@ -44,7 +47,7 @@ h1, h2, h3, p { margin: 0; }
   max-width: var(--piq-content-max);
   margin: 0 auto;
   padding: calc(var(--piq-space-2) + var(--piq-inset-top, 0px)) var(--piq-gutter);
-  padding-bottom: calc(var(--piq-tabbar-h) + var(--piq-inset-bottom, 0px) + var(--piq-space-6));
+  padding-bottom: calc(var(--piq-tabbar-h) + var(--piq-inset-bottom, 0px) + var(--piq-space-8));
   min-height: 60vh;
 }
 .page-enter { animation: page-in var(--piq-dur-base) var(--piq-ease-standard) both; }
@@ -63,6 +66,16 @@ h1, h2, h3, p { margin: 0; }
   white-space: nowrap;
   border: 0;
 }
+/* 内联 SVG 滤镜定义块：零尺寸、不参与布局，只供 CSS url(#id) 引用。 */
+.piq-filter-defs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
 [hidden] { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -72,4 +85,5 @@ h1, h2, h3, p { margin: 0; }
   }
   .app-dim .view { transform: none; }
   .skeleton { animation: none; }
+  .ring-seg { animation: none !important; }
 }

@@ -58,6 +58,13 @@
     return parts.join(' · ');
   }
 
+  function readThemeSummary() {
+    var mode = window.PIQ.theme ? window.PIQ.theme.getMode() : 'system';
+    if (mode === 'light') return '浅色';
+    if (mode === 'dark') return '深色';
+    return '跟随系统';
+  }
+
   function readNotifySummary() {
     try {
       var enabled = api.getSetting(NOTIFY_KEYS[0]) === 'true';
@@ -91,7 +98,7 @@
     var avatarSrc = typeof user.avatar === 'string' && /^data:image\/(png|jpeg|webp);base64,/.test(user.avatar)
       ? user.avatar : '';
     var meta = h('div', { class: 'profile-meta', text: metaText(user, null) });
-    var profileCard = h('section', { class: 'profile-hero' }, [
+    var profileCard = h('section', { class: 'profile-hero glass-focus' }, [
       h('div', { class: 'profile-avatar', 'aria-hidden': 'true' }, [
         avatarSrc
           ? h('img', { class: 'profile-avatar-img', src: avatarSrc, alt: '' })
@@ -105,7 +112,7 @@
     ]);
 
     var edit = h('button', {
-      class: 'btn btn-block',
+      class: 'btn btn-block profile-edit',
       type: 'button',
       onclick: function () { openEdit(user); }
     }, '编辑资料');
@@ -123,7 +130,8 @@
       ]),
       h('section', { class: 'page-section' }, [
         h('h2', { class: 'section-title', text: '设置' }),
-        h('div', { class: 'menu-list' }, [
+        h('div', { class: 'menu-list glass-surface' }, [
+          row('外观', readThemeSummary(), 'settings/appearance'),
           row('通知提醒', readNotifySummary(), 'settings/notifications'),
           row('数据管理', '导出与导入', 'settings/data'),
           row('隐私与登录', '自动登录、改密、删除账号', 'settings/privacy'),

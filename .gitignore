@@ -25,13 +25,15 @@ signing.properties
 # Generated WebView assets (built from frontend/ by tools/copy_frontend.py)
 app/src/main/assets/www/
 
-# Local-only material
+# Local-only material / 不推送豁免名单
+# 角色指令与技术档案只在本机保留；公开仓库不含 AGENTS.md 与 Role/。
+# 外部技术档案位于仓库外 B:\1_school\1A_project\001\Docs（不在此目录，天然不推送）。
 /vendor/
 Private/
 /photo/
-AGENTS.md
-Role/
-docs/提示词/
+/AGENTS.md
+/Role/
+/docs/提示词/
 
 # Python bytecode
 __pycache__/

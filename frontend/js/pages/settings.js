@@ -3,6 +3,8 @@
 
   var ui = window.PIQ.ui;
   var api = window.PIQ.api;
+  var art = window.PIQ.art;
+  var theme = window.PIQ.theme;
   var h = ui.h;
 
   var KEY_AUTO_LOGIN = 'app_settings.auto_login';
@@ -81,14 +83,14 @@
         control.disabled = childrenOff;
         control.setAttribute('aria-disabled', childrenOff ? 'true' : 'false');
       });
-      advanceSwitch.setAttribute('aria-checked', state.advance ? 'true' : 'false');
-      onDaySwitch.setAttribute('aria-checked', state.onDay ? 'true' : 'false');
-      overdueSwitch.setAttribute('aria-checked', state.overdue ? 'true' : 'false');
+      advanceSwitch.setAttribute('aria-checked', !childrenOff && state.advance ? 'true' : 'false');
+      onDaySwitch.setAttribute('aria-checked', !childrenOff && state.onDay ? 'true' : 'false');
+      overdueSwitch.setAttribute('aria-checked', !childrenOff && state.overdue ? 'true' : 'false');
       var daysOff = childrenOff || !state.advance;
       dayButtons.forEach(function (button) {
         button.disabled = daysOff;
         button.setAttribute('aria-disabled', daysOff ? 'true' : 'false');
-        button.setAttribute('aria-pressed', button.dataset.days === state.days ? 'true' : 'false');
+        button.setAttribute('aria-pressed', !daysOff && button.dataset.days === state.days ? 'true' : 'false');
       });
       daysRow.hidden = !state.advance;
     }
@@ -152,7 +154,7 @@
     var daysRow = h('div', { class: 'days-options' }, dayButtons);
 
     content.appendChild(h('section', { class: 'page-section' }, [
-      h('div', { class: 'card settings-card' }, [
+      h('div', { class: 'card settings-card glass-focus' }, [
         switchRow('允许提醒', '经期前后在本机发出提醒。', master)
       ])
     ]));
@@ -252,7 +254,7 @@
     var view = page('本机数据由你掌控。自动登录只影响这台设备的登录体验。', [
       h('section', { class: 'page-section' }, [
         h('h2', { class: 'section-title', text: '登录' }),
-        h('div', { class: 'card settings-card' }, [
+        h('div', { class: 'card settings-card glass-focus' }, [
           switchRow('自动登录', '下次启动时尝试恢复本机登录', autoSwitch),
           autoNote,
           autoError
@@ -381,14 +383,75 @@
     };
   }
 
+  function renderAppearance(container) {
+    var alive = true;
+    var options = [
+      { id: 'system', title: '跟随系统', note: '随系统的浅色或深色设置切换', icon: 'system' },
+      { id: 'light', title: '浅色', note: '近白纸色背景，适合白天', icon: 'sun' },
+      { id: 'dark', title: '深色', note: '暖黑夜色，适合低光环境', icon: 'moon' }
+    ];
+    var buttons = options.map(function (option) {
+      return h('button', {
+        class: 'appearance-option',
+        type: 'button',
+        'aria-pressed': 'false',
+        dataset: { mode: option.id },
+        onclick: function () {
+          if (theme) theme.setMode(option.id);
+          sync();
+        }
+      }, [
+        h('span', { class: 'appearance-icon', 'aria-hidden': 'true' }, [ui.icon(option.icon)]),
+        h('span', { class: 'appearance-copy' }, [
+          h('span', { class: 'appearance-title', text: option.title }),
+          h('span', { class: 'appearance-note', text: option.note })
+        ]),
+        h('span', { class: 'appearance-check', 'aria-hidden': 'true', text: '✓' })
+      ]);
+    });
+    var view = page('外观只影响这台设备的显示，不进入备份。', [
+      h('section', { class: 'page-section' }, [
+        h('div', { class: 'appearance-list' }, buttons)
+      ])
+    ]);
+    container.appendChild(view);
+
+    function sync() {
+      if (!alive) return;
+      var current = theme ? theme.getMode() : 'light';
+      buttons.forEach(function (button) {
+        button.setAttribute('aria-pressed', button.dataset.mode === current ? 'true' : 'false');
+      });
+    }
+    sync();
+    document.addEventListener('piq:theme', sync);
+    return {
+      destroy: function () {
+        alive = false;
+        document.removeEventListener('piq:theme', sync);
+      }
+    };
+  }
+
   function renderAbout(container) {
     var alive = true;
-    var version = h('div', { class: 'about-version', text: 'PeriodIQ —' });
+    var version = h('div', { class: 'about-brand-version', text: '版本 —' });
     var view = page(null, [
       h('section', { class: 'page-section' }, [
-        h('div', { class: 'card about-card' }, [
-          version,
-          h('div', { class: 'settings-row-note', text: '本地优先的周期记录与预测工具。' })
+        h('div', { class: 'about-brand' }, [
+          h('img', {
+            class: 'about-brand-art',
+            src: art.brandMoon,
+            alt: '',
+            'aria-hidden': 'true',
+            width: '86',
+            height: '86'
+          }),
+          h('div', { class: 'about-brand-copy' }, [
+            h('div', { class: 'about-brand-name', text: 'PeriodIQ' }),
+            version,
+            h('div', { class: 'about-brand-note', text: '本地优先的周期记录与预测工具' })
+          ])
         ])
       ]),
       h('section', { class: 'page-section' }, [
@@ -413,9 +476,9 @@
     container.appendChild(view);
     api.health().then(function (data) {
       if (!alive) return;
-      version.textContent = 'PeriodIQ ' + (data && data.version ? String(data.version) : '—');
+      version.textContent = '版本 ' + (data && data.version ? String(data.version) : '—');
     }).catch(function () {
-      if (alive) version.textContent = 'PeriodIQ —';
+      if (alive) version.textContent = '版本 —';
     });
     return { destroy: function () { alive = false; } };
   }
@@ -430,6 +493,7 @@
   window.PIQ = window.PIQ || {};
   window.PIQ.pages = window.PIQ.pages || {};
   window.PIQ.pages.settings = {
+    renderAppearance: renderAppearance,
     renderNotifications: renderNotifications,
     renderPrivacy: renderPrivacy,
     renderAbout: renderAbout

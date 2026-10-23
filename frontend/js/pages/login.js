@@ -67,14 +67,17 @@
     ]);
 
     var page = h('div', { class: 'login-page' }, [
-      h('img', {
-        class: 'login-art',
-        src: art.brandMoon,
-        alt: '',
-        'aria-hidden': 'true',
-        width: '160',
-        height: '160'
-      }),
+      h('div', { class: 'login-art-wrap' }, [
+        h('img', {
+          class: 'login-art',
+          src: art.brandMoon,
+          alt: '',
+          'aria-hidden': 'true',
+          width: '132',
+          height: '132'
+        })
+      ]),
+      h('div', { class: 'login-brand', text: 'PeriodIQ' }),
       h('h1', { class: 'login-title', text: '记录，然后被理解' }),
       h('p', { class: 'login-sub', text: '从第一条记录开始，模型逐步认识你的周期。' }),
       form,

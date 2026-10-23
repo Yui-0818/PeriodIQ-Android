@@ -107,7 +107,7 @@
     container.appendChild(page('导出用于自己保存或迁移；导入会替换本机现有数据。', [
       h('section', { class: 'page-section' }, [
         h('h2', { class: 'section-title', text: '导出' }),
-        h('div', { class: 'card data-card' }, [
+        h('div', { class: 'card data-card glass-focus' }, [
           h('p', { class: 'settings-row-note', text: 'JSON 包含完整备份；CSV 只包含开始日期与结束日期两列。' }),
           jsonButton,
           csvButton
@@ -308,7 +308,7 @@
           });
           jsonFile.value = '';
         });
-        panel.appendChild(h('div', { class: 'import-file-card' }, [
+        panel.appendChild(h('div', { class: 'import-file-card glass-focus' }, [
           h('div', { class: 'import-file-icon', 'aria-hidden': 'true', text: 'JSON' }),
           h('div', { class: 'import-file-copy' }, [
             h('div', { class: 'settings-row-title', text: '完整备份' }),
@@ -338,7 +338,7 @@
           });
           csvFile.value = '';
         });
-        panel.appendChild(h('div', { class: 'import-file-card' }, [
+        panel.appendChild(h('div', { class: 'import-file-card glass-focus' }, [
           h('div', { class: 'import-file-icon', 'aria-hidden': 'true', text: 'CSV' }),
           h('div', { class: 'import-file-copy' }, [
             h('div', { class: 'settings-row-title', text: '周期表' }),

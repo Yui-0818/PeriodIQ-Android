@@ -134,9 +134,9 @@ android {
         applicationId = "io.github.yui0818.periodiq"
         minSdk = 26
         targetSdk = 35
-        // 2.0.0 / 13：新前端、数据管理与通知收口后的首个开源发布版。
-        versionName = "2.0.0"
-        versionCode = 13
+        // 2.1.0 / 14：亮色默认 + 暗色模式、5 tab、月相 hero 与玻璃层级重做。
+        versionName = "2.1.0"
+        versionCode = 14
         ndk {
             // Chaquopy 要求显式 abiFilters（上一轮原始报错："Chaquopy requires ndk.abiFilters"）；
             // 真机是 arm64 设备，且本轮不打算跑其它 ABI（型号不写进仓库：R9.1 审计 P0）。

@@ -17,6 +17,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.view.WindowInsetsController
 import android.webkit.ConsoleMessage
 import android.webkit.JavascriptInterface
 import android.webkit.ValueCallback
@@ -24,6 +25,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.webkit.WebViewAssetLoader
@@ -78,7 +80,8 @@ private fun bridgeTokenScript(token: String): String = """
             window.PIQNative = {
                 request: function (m, p, b) { return n.requestWithToken(m, p, b, t); },
                 getSetting: function (k) { return n.getSettingWithToken(k, t); },
-                setSetting: function (k, v) { return n.setSettingWithToken(k, v, t); }
+                setSetting: function (k, v) { return n.setSettingWithToken(k, v, t); },
+                setTheme: function (dark) { return n.setThemeWithToken(!!dark, t); }
             };
         } else {
             console.warn('[piq-token] bridge-absent');
@@ -239,6 +242,7 @@ class MainActivity : Activity(), PiqReminderHooks {
 
         webView = WebView(this)
         setContentView(webView)
+        applySystemBarIcons(false)
         insets = PiqInsets(webView)
         insets.enable(window)
         with(webView.settings) {
@@ -246,6 +250,12 @@ class MainActivity : Activity(), PiqReminderHooks {
             domStorageEnabled = true
             allowFileAccess = false
             allowContentAccess = false
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                setAlgorithmicDarkeningAllowed(false)
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                @Suppress("DEPRECATION")
+                setForceDark(WebSettings.FORCE_DARK_OFF)
+            }
         }
         fileChooser = PiqFileChooser(this)
         webView.webChromeClient = object : WebChromeClient() {
@@ -712,6 +722,35 @@ class MainActivity : Activity(), PiqReminderHooks {
         fun setSettingWithToken(key: String?, value: String?, token: String?): String {
             if (rejectUntrusted("setSetting", token) != null) return ""
             return hostSettings.setSetting(key ?: "", value ?: "")
+        }
+
+        @JavascriptInterface
+        fun setThemeWithToken(dark: Boolean, token: String?): String {
+            if (rejectUntrusted("setTheme", token) != null) return ""
+            runOnUiThread { applySystemBarIcons(dark) }
+            Log.i(TAG, "theme-bars|dark=$dark")
+            return "ok"
+        }
+    }
+
+    /** 系统栏图标跟随页面主题：亮底用深色图标，暗底用浅色图标。 */
+    private fun applySystemBarIcons(dark: Boolean) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val controller = window.insetsController ?: return
+            val lightBars = WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS or
+                WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
+            controller.setSystemBarsAppearance(if (dark) 0 else lightBars, lightBars)
+        } else {
+            @Suppress("DEPRECATION")
+            val lightFlags = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+            @Suppress("DEPRECATION")
+            val flags = if (dark) {
+                window.decorView.systemUiVisibility and lightFlags.inv()
+            } else {
+                window.decorView.systemUiVisibility or lightFlags
+            }
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = flags
         }
     }
 

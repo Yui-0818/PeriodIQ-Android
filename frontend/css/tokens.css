@@ -1,58 +1,90 @@
-/* R14.1 唯一 token 源：颜色/字号/间距/圆角/时长/层级/阴影只在这里出现裸值。 */
+/* 唯一 token 源：颜色/字号/间距/圆角/时长/层级/阴影只在这里出现裸值。
+   默认亮色；[data-theme="dark"] 为暗色模式。语义红只用于经期/危险/逾期/通知点。 */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  --piq-color-bg: #14100E;
-  --piq-color-bg-gradient: radial-gradient(120% 82% at 50% 0%, #231A16 0%, #14100E 55%, #0D0A08 100%);
-  --piq-color-surface: #1F1915;
-  --piq-color-surface-alt: #261E19;
-  --piq-color-text: #F4ECE2;
-  --piq-color-text-secondary: #C9BBA9;
-  --piq-color-text-tertiary: #A29482;
-  --piq-color-primary: #B23A2E;
-  --piq-color-primary-pressed: #8E2D24;
-  --piq-color-on-primary: #FFF8F2;
-  --piq-color-accent-text: #E0715C;
-  --piq-color-accent-soft: rgba(224, 113, 92, .14);
-  --piq-color-accent-soft-strong: rgba(224, 113, 92, .24);
-  --piq-color-gold: #E3C27A;
-  --piq-color-gold-text: #D4B36A;
-  --piq-color-border: rgba(244, 236, 226, .10);
-  --piq-color-border-strong: rgba(244, 236, 226, .18);
-  --piq-color-border-switch: rgba(244, 236, 226, .14);
-  --piq-color-danger: #E5645A;
-  --piq-color-success: #67C08D;
-  --piq-color-warning: #E0A94A;
-  --piq-color-period: #E0715C;
-  --piq-color-period-soft: rgba(224, 113, 92, .18);
-  --piq-color-predicted: #E8A0B4;
-  --piq-color-predicted-soft: rgba(232, 160, 180, .14);
-  --piq-color-fertile: #B9A0EF;
-  --piq-color-fertile-soft: rgba(185, 160, 239, .14);
-  --piq-color-ovulation: #C7B2FF;
-  --piq-color-safe: #9CC0DC;
-  --piq-color-focus: #E0715C;
-  --piq-color-overlay: rgba(0, 0, 0, .55);
-  --piq-color-dim: rgba(13, 10, 8, .55);
-  --piq-color-danger-soft: rgba(229, 100, 90, .12);
-  --piq-color-danger-border: rgba(229, 100, 90, .35);
-  --piq-color-danger-zone-soft: rgba(229, 100, 90, .08);
-  --piq-color-danger-zone-border: rgba(229, 100, 90, .25);
-  --piq-color-toast-bg: rgba(38, 30, 25, .96);
+  --piq-color-bg: #FAFAF8;
+  --piq-color-bg-gradient:
+    radial-gradient(88% 52% at 14% 0%, rgba(201, 162, 75, .07), transparent 62%),
+    radial-gradient(72% 44% at 94% 6%, rgba(178, 58, 46, .035), transparent 58%),
+    linear-gradient(180deg, #FFFFFF 0%, #FAFAF8 46%, #F6F6F3 100%);
+  --piq-color-surface: #FFFFFF;
+  --piq-color-surface-alt: #F3F3F0;
+  --piq-color-text: #1F1C18;
+  --piq-color-text-secondary: #615B53;
+  --piq-color-text-tertiary: #786F66;
+  --piq-color-primary: #4A3B31;
+  --piq-color-primary-pressed: #3A2E26;
+  --piq-color-on-primary: #FFFDF8;
+  --piq-color-accent-text: #7A5C16;
+  --piq-color-accent-soft: rgba(122, 92, 22, .10);
+  --piq-color-accent-soft-strong: rgba(122, 92, 22, .18);
+  --piq-color-gold: #C9A24B;
+  --piq-color-gold-text: #7A5C16;
+  --piq-color-border: rgba(31, 28, 24, .08);
+  --piq-color-border-strong: rgba(31, 28, 24, .16);
+  --piq-color-border-switch: rgba(31, 28, 24, .16);
+  --piq-color-danger: #9E2F23;
+  --piq-color-success: #3F7A57;
+  --piq-color-warning: #8A5A00;
+  --piq-color-period: #B23A2E;
+  --piq-color-period-soft: rgba(178, 58, 46, .12);
+  --piq-color-predicted: #C26A7E;
+  --piq-color-predicted-soft: rgba(194, 106, 126, .11);
+  --piq-color-fertile: #7B63B8;
+  --piq-color-fertile-soft: rgba(123, 99, 184, .10);
+  --piq-color-ovulation: #8E76D0;
+  --piq-color-safe: #4E7D9A;
+  --piq-color-focus: #7A5C16;
+  --piq-color-overlay: rgba(31, 28, 24, .35);
+  --piq-color-dim: rgba(31, 28, 24, .16);
+  --piq-color-danger-soft: rgba(158, 47, 35, .08);
+  --piq-color-danger-border: rgba(158, 47, 35, .24);
+  --piq-color-danger-zone-soft: rgba(158, 47, 35, .05);
+  --piq-color-danger-zone-border: rgba(158, 47, 35, .18);
+  --piq-color-toast-bg: rgba(31, 28, 24, .95);
+  --piq-color-toast-text: #FFFDF8;
+
+  /* 品牌 hero：纯白纸面为主，金/玫瑰只是右上/左下的极小面积点缀（不是米色底）。 */
+  --piq-hero-gradient:
+    radial-gradient(82% 92% at 84% 6%, rgba(201, 162, 75, .12), transparent 58%),
+    radial-gradient(94% 86% at 8% 100%, rgba(178, 58, 46, .03), transparent 62%),
+    linear-gradient(150deg, #FFFFFF 0%, #FEFDFA 54%, #FBF8F2 100%);
+  --piq-hero-text: #1F1C18;
+  --piq-hero-secondary: #615B53;
+  --piq-hero-tertiary: #786F66;
+  --piq-hero-border: rgba(255, 255, 255, .85);
+  --piq-hero-surface: rgba(255, 255, 255, .72);
+  --piq-hero-surface-strong: rgba(255, 255, 255, .92);
+  --piq-hero-shadow: 0 18px 44px rgba(31, 28, 24, .07);
+  --piq-hero-highlight: inset 0 1px 0 rgba(255, 255, 255, .96), inset 0 -1px 0 rgba(31, 28, 24, .04);
+  --piq-hero-warning-text: #8A5A00;
+  --piq-hero-warning-bg: rgba(138, 90, 0, .08);
+  --piq-hero-warning-border: rgba(138, 90, 0, .18);
+
+  /* 28 天轨道环（亮色模式）。 */
+  --piq-ring-neutral: rgba(31, 28, 24, .12);
+  --piq-ring-period: #B23A2E;
+  --piq-ring-fertile: #7B63B8;
+  --piq-ring-predicted: #C26A7E;
+  --piq-ring-today: #B8873A;
+  --piq-ring-overdue: #A9690A;
+  --piq-ring-size: 216px;
+  --piq-ring-width: 7px;
 
   --piq-font-body: system-ui, "Noto Sans CJK SC", "PingFang SC", sans-serif;
-  --piq-font-display: "Noto Serif SC", "Songti SC", serif;
-  --piq-text-display: 44px;
-  --piq-text-h1: 26px;
-  --piq-text-h2: 20px;
+  --piq-font-display: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --piq-text-display: 48px;
+  --piq-text-h1: 24px;
+  --piq-text-h2: 19px;
   --piq-text-h3: 16px;
-  --piq-text-about-version: 18px;
+  --piq-text-about-version: 20px;
   --piq-text-body: 15px;
   --piq-text-secondary: 13px;
   --piq-text-caption: 12px;
-  --piq-text-tab: 11px;
-  --piq-text-kicker: 12px;
-  --piq-line-display: 1.1;
+  --piq-text-tab: 10.5px;
+  --piq-text-kicker: 11px;
+  --piq-line-display: 1.05;
   --piq-line-h1: 1.2;
   --piq-line-h2: 1.3;
   --piq-line-h3: 1.4;
@@ -73,50 +105,50 @@
   --piq-space-8: 32px;
   --piq-space-10: 40px;
   --piq-gutter: 16px;
-  --piq-content-max: 600px;
+  --piq-content-max: 560px;
   --piq-dialog-max: 360px;
   --piq-tap: 48px;
   --piq-tap-compact: 44px;
-  --piq-appbar-h: 56px;
-  --piq-tabbar-h: 72px;
-  --piq-tabbar-h-short: 64px;
+  --piq-appbar-h: 52px;
+  --piq-tabbar-h: 64px;
+  --piq-tabbar-h-short: 58px;
   --piq-tabbar-short-radius: 20px;
   --piq-fab: 56px;
   --piq-fab-short: 52px;
-  --piq-sheet-max: 70vh;
+  --piq-sheet-max: 72vh;
   --piq-chart-h: 220px;
-  --piq-ring-size: 180px;
-  --piq-ring-stroke: 1.5px;
-  --piq-ring-width: 10px;
-  --piq-art-hero: 160px;
-  --piq-art-empty: 160px;
-  --piq-art-brand: 160px;
-  --piq-star: 48px;
+  --piq-art-hero: 230px;
+  --piq-art-empty: 84px;
+  --piq-art-brand: 180px;
+  --piq-star: 36px;
   --piq-avatar-hit: 48px;
-  --piq-avatar-mark: 32px;
-  --piq-active-pill-w: 40px;
-  --piq-active-pill-h: 28px;
-  --piq-handle-w: 32px;
+  --piq-avatar-mark: 34px;
+  --piq-tab-icon-w: 44px;
+  --piq-tab-icon-h: 26px;
+  --piq-tab-pill-radius: 18px;
+  --piq-tab-pill-inset-y: 2px;
+  --piq-tab-pill-inset-x: 5px;
+  --piq-handle-w: 36px;
   --piq-handle-h: 4px;
   --piq-month-row-h: 48px;
   --piq-week-row-h: 28px;
-  --piq-cal-cell-h: 48px;
+  --piq-cal-cell-h: 46px;
   --piq-row-h: 56px;
-  --piq-list-row-h: 64px;
+  --piq-list-row-h: 60px;
   --piq-skeleton-h: 96px;
   --piq-dot: 6px;
   --piq-dot-lg: 8px;
   --piq-legend-dot: 8px;
   --piq-bar-pad: 8px;
   --piq-nav-hidden-offset: 24px;
-  --piq-scrim-h: 160px;
-  --piq-icon-size: 24px;
-  --piq-icon-short: 22px;
+  --piq-scrim-h: 118px;
+  --piq-icon-size: 23px;
+  --piq-icon-short: 21px;
 
   --piq-radius-sm: 10px;
   --piq-radius-control: 14px;
-  --piq-radius-card: 18px;
-  --piq-radius-sheet: 24px;
+  --piq-radius-card: 20px;
+  --piq-radius-sheet: 26px;
   --piq-radius-pill: 999px;
 
   --piq-z-content: 0;
@@ -131,59 +163,218 @@
   --piq-dur-exit: 200ms;
   --piq-dur-base: 240ms;
   --piq-dur-sheet: 280ms;
-  --piq-dur-enter: 320ms;
+  --piq-dur-enter: 340ms;
   --piq-dur-reduced: 1ms;
   --piq-ease-standard: cubic-bezier(.2, .8, .2, 1);
   --piq-ease-exit: cubic-bezier(.4, 0, 1, 1);
   --piq-motion-distance: 8px;
 
-  --piq-shadow-1: 0 1px 2px rgba(0, 0, 0, .24), 0 8px 24px rgba(0, 0, 0, .32);
-  --piq-shadow-2: 0 2px 6px rgba(0, 0, 0, .28), 0 16px 40px rgba(0, 0, 0, .42);
-  --piq-shadow-sheet: 0 -8px 32px rgba(0, 0, 0, .55);
-  --piq-focus-ring: 0 0 0 2px #14100E, 0 0 0 4px #E0715C;
+  --piq-shadow-1: 0 1px 2px rgba(31, 28, 24, .04), 0 10px 28px rgba(31, 28, 24, .06);
+  --piq-shadow-2: 0 2px 8px rgba(31, 28, 24, .06), 0 18px 44px rgba(31, 28, 24, .10);
+  --piq-shadow-sheet: 0 -12px 40px rgba(31, 28, 24, .14);
+  --piq-focus-ring: 0 0 0 2px #FFFFFF, 0 0 0 4px #7A5C16;
 
-  --piq-glass-bar-bg: rgba(26, 20, 17, .82);
-  --piq-glass-bar-blur: blur(16px) saturate(130%);
-  --piq-glass-bar-border: 1px solid rgba(255, 255, 255, .12);
-  --piq-glass-bar-highlight: inset 0 1px 0 rgba(255, 255, 255, .16);
-  --piq-glass-bar-shadow: 0 10px 28px rgba(0, 0, 0, .48);
-  --piq-glass-scrim: linear-gradient(to top, rgba(13, 10, 8, .55) 0, rgba(13, 10, 8, .55) 100px, rgba(13, 10, 8, 0) 160px);
-  --piq-glass-fallback: #1A1512;
-  --piq-glass-hero-bg: linear-gradient(135deg, rgba(255, 255, 255, .10), rgba(224, 113, 92, .10) 55%, rgba(201, 162, 75, .08));
-  --piq-glass-hero-bg-strong: linear-gradient(135deg, rgba(255, 255, 255, .14), rgba(224, 113, 92, .14) 55%, rgba(201, 162, 75, .10));
-  --piq-glass-hero-border: rgba(255, 255, 255, .14);
+  /* 底栏：普通磨砂玻璃板（blur + saturate + 极淡白染），不做折射。 */
+  --piq-glass-bar-bg: linear-gradient(180deg, rgba(255, 255, 255, .34) 0%, rgba(255, 255, 255, .26) 58%, rgba(255, 255, 255, .22) 100%);
+  --piq-glass-bar-blur: blur(14px) saturate(165%);
+  --piq-glass-bar-border: 1px solid rgba(255, 255, 255, .72);
+  --piq-glass-bar-highlight:
+    inset 0 1px 0 rgba(255, 255, 255, .92),
+    inset 1px 0 0 rgba(255, 255, 255, .34),
+    inset -1px 0 0 rgba(255, 255, 255, .24),
+    inset 0 -1px 0 rgba(201, 162, 75, .26);
+  --piq-glass-bar-shadow: 0 10px 30px rgba(31, 28, 24, .08), 0 2px 6px rgba(31, 28, 24, .04);
+  /* 底栏内部只画边缘：上缘 1px 亮线 + 底部暖色 caustic 晕，不做整块填充以保持透光。 */
+  --piq-glass-bar-caustic:
+    linear-gradient(to bottom, rgba(255, 255, 255, .58) 0 .8px, rgba(255, 255, 255, 0) 84px),
+    radial-gradient(130% 78% at 50% 122%, rgba(201, 162, 75, .10), rgba(201, 162, 75, 0) 62%);
+  --piq-glass-scrim: linear-gradient(to top, rgba(255, 255, 255, .62) 0, rgba(255, 255, 255, .30) 56px, rgba(255, 255, 255, 0) 118px);
+  /* 选中项胶囊透镜：几乎无填充，只有细边、顶部镜面弧、底部金色水光与 1px 冷/暖色散边。 */
+  --piq-pill-border: rgba(255, 255, 255, .58);
+  --piq-pill-surface:
+    radial-gradient(118% 66% at 50% -30%, rgba(255, 255, 255, .10), rgba(255, 255, 255, 0) 62%),
+    rgba(255, 255, 255, .015);
+  --piq-pill-arcs:
+    radial-gradient(36% 15% at 50% 0%, rgba(255, 255, 255, .66), rgba(255, 255, 255, 0) 78%),
+    radial-gradient(70% 14% at 50% 102%, rgba(227, 194, 122, .30), rgba(227, 194, 122, 0) 74%);
+  --piq-pill-shadow:
+    inset 0 .5px 0 rgba(255, 255, 255, .92),
+    inset 0 -1px 0 rgba(227, 194, 122, .40),
+    inset 0 7px 10px -9px rgba(31, 28, 24, .42),
+    inset 1px 0 0 rgba(255, 226, 186, .40),
+    inset -1px 0 0 rgba(198, 224, 255, .42),
+    0 0 0 .5px rgba(31, 28, 24, .05),
+    0 4px 14px rgba(140, 104, 38, .07);
+  --piq-tab-label-shadow: 0 1px 0 rgba(255, 255, 255, .55);
+  --piq-glass-fallback: #FAFAF8;
+  --piq-glass-surface: linear-gradient(152deg, rgba(255, 255, 255, .82), rgba(255, 255, 255, .44) 56%, rgba(201, 162, 75, .05));
+  --piq-glass-edge: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -1px 0 rgba(31, 28, 24, .04);
+  --piq-glass-focus-bg: rgba(255, 255, 255, .68);
+  --piq-glass-focus-border: rgba(255, 255, 255, .84);
+  --piq-glass-focus-highlight: inset 0 1px 0 rgba(255, 255, 255, .96), inset 0 -1px 0 rgba(31, 28, 24, .05);
+  --piq-glass-focus-blur: blur(20px) saturate(150%);
+  --piq-glass-hero-bg: linear-gradient(135deg, rgba(255, 255, 255, .10), rgba(201, 162, 75, .08) 55%, rgba(178, 58, 46, .06));
+  --piq-glass-hero-bg-strong: linear-gradient(135deg, rgba(255, 255, 255, .14), rgba(201, 162, 75, .10) 55%, rgba(178, 58, 46, .08));
+  --piq-glass-hero-border: rgba(255, 255, 255, .16);
   --piq-glass-hero-highlight: inset 0 1px 0 rgba(255, 255, 255, .22), inset 1px 0 0 rgba(255, 255, 255, .08);
-  --piq-topbar-bg: linear-gradient(to bottom, #14100E 0%, #14100E 70%, rgba(20, 16, 14, 0) 100%);
-  --piq-skeleton-bg: linear-gradient(90deg, #1F1915 0%, #261E19 50%, #1F1915 100%);
-  --piq-sheet-scrim: rgba(0, 0, 0, .55);
-  --piq-ring-fill: conic-gradient(from 180deg, #E0715C 0 100%, #E0715C 100%);
-  --piq-ring-track-color: rgba(244, 236, 226, .10);
+  --piq-topbar-bg: linear-gradient(to bottom, rgba(255, 255, 255, .94) 0%, rgba(255, 255, 255, .82) 62%, rgba(255, 255, 255, 0) 100%);
+  --piq-skeleton-bg: linear-gradient(90deg, #EFEFEC 0%, #FBFBF9 50%, #EFEFEC 100%);
+  --piq-sheet-scrim: rgba(31, 28, 24, .32);
+  --piq-ring-fill: conic-gradient(from 180deg, #C9A24B 0 100%, #C9A24B 100%);
+  --piq-ring-track-color: rgba(31, 28, 24, .09);
   --piq-star-glow: drop-shadow(0 0 12px rgba(227, 194, 122, .55));
   --piq-safe-area-bottom: 0px;
   --piq-ime-bottom: 0px;
 
-  /* R14.2a：历史/分析与共用 SVG 图表 */
-  --piq-chart-grid: rgba(244, 236, 226, .12);
-  --piq-chart-reference: rgba(227, 194, 122, .65);
-  --piq-chart-stroke: 2px;
+  --piq-chart-grid: rgba(31, 28, 24, .10);
+  --piq-chart-reference: rgba(122, 92, 22, .55);
+  --piq-chart-stroke: 2.2px;
   --piq-chart-grid-stroke: 1px;
   --piq-chart-dot-stroke: 2px;
   --piq-chart-dash: 4 4;
-  --piq-history-row-min-h: 72px;
-  --piq-kpi-cell-min-h: 76px;
+  --piq-history-row-min-h: 68px;
+  --piq-kpi-cell-min-h: 74px;
   --piq-progress-h: 6px;
-  --piq-progress-track: rgba(244, 236, 226, .10);
+  --piq-progress-track: rgba(31, 28, 24, .09);
   --piq-note-min-h: 84px;
   --piq-chart-empty-min-h: 120px;
 
-  /* R14.2b：我的 / 设置 / 数据管理 */
   --piq-avatar-lg: 72px;
   --piq-avatar-edit: 56px;
-  --piq-menu-row-min-h: 64px;
+  --piq-menu-row-min-h: 60px;
   --piq-switch-w: 48px;
   --piq-switch-h: 28px;
   --piq-switch-knob: 22px;
+  --piq-switch-track: #E9E7E2;
+  --piq-switch-knob-color: #FFFFFF;
+  --piq-switch-knob-on: var(--piq-color-on-primary);
   --piq-import-file-min-h: 112px;
   --piq-import-icon-size: 44px;
   --piq-license-row-min-h: 44px;
+
+  --piq-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --piq-hero-gradient:
+    radial-gradient(96% 120% at 82% 6%, rgba(201, 162, 75, .22), transparent 56%),
+    radial-gradient(120% 100% at 8% 100%, rgba(178, 58, 46, .22), transparent 58%),
+    linear-gradient(150deg, #261B16 0%, #1A1310 54%, #120D0B 100%);
+  --piq-hero-text: #F8EFE3;
+  --piq-hero-secondary: #CDBCA8;
+  --piq-hero-tertiary: #A69582;
+  --piq-hero-border: rgba(255, 255, 255, .14);
+  --piq-hero-surface: rgba(255, 255, 255, .07);
+  --piq-hero-surface-strong: rgba(255, 255, 255, .12);
+  --piq-hero-shadow: 0 22px 54px rgba(0, 0, 0, .32);
+  --piq-hero-highlight: inset 0 1px 0 rgba(255, 255, 255, .18);
+  --piq-hero-warning-text: #E8C27E;
+  --piq-hero-warning-bg: rgba(224, 169, 74, .10);
+  --piq-hero-warning-border: rgba(224, 169, 74, .22);
+  --piq-ring-neutral: rgba(255, 255, 255, .15);
+  --piq-ring-period: #E0715C;
+  --piq-ring-fertile: #B9A0EF;
+  --piq-ring-predicted: #E8A0B4;
+  --piq-ring-today: #E3C27A;
+  --piq-ring-overdue: #E0A94A;
+
+  --piq-color-bg: #14100E;
+  --piq-color-bg-gradient:
+    radial-gradient(92% 56% at 16% 0%, rgba(201, 162, 75, .10), transparent 62%),
+    radial-gradient(76% 46% at 92% 6%, rgba(178, 58, 46, .10), transparent 58%),
+    linear-gradient(180deg, #171210 0%, #14100E 52%, #0D0A08 100%);
+  --piq-color-surface: #1F1915;
+  --piq-color-surface-alt: #261E19;
+  --piq-color-text: #F4ECE2;
+  --piq-color-text-secondary: #C9BBA9;
+  --piq-color-text-tertiary: #A29482;
+  --piq-color-primary: #E3C27A;
+  --piq-color-primary-pressed: #CBA95F;
+  --piq-color-on-primary: #1A1411;
+  --piq-color-accent-text: #E3C27A;
+  --piq-color-accent-soft: rgba(227, 194, 122, .12);
+  --piq-color-accent-soft-strong: rgba(227, 194, 122, .20);
+  --piq-color-gold: #E3C27A;
+  --piq-color-gold-text: #D4B36A;
+  --piq-color-border: rgba(244, 236, 226, .10);
+  --piq-color-border-strong: rgba(244, 236, 226, .18);
+  --piq-color-border-switch: rgba(244, 236, 226, .14);
+  --piq-color-danger: #E5645A;
+  --piq-color-success: #67C08D;
+  --piq-color-warning: #E0A94A;
+  --piq-color-period: #E0715C;
+  --piq-color-period-soft: rgba(224, 113, 92, .16);
+  --piq-color-predicted: #E8A0B4;
+  --piq-color-predicted-soft: rgba(232, 160, 180, .13);
+  --piq-color-fertile: #B9A0EF;
+  --piq-color-fertile-soft: rgba(185, 160, 239, .14);
+  --piq-color-ovulation: #C7B2FF;
+  --piq-color-safe: #9CC0DC;
+  --piq-color-focus: #E3C27A;
+  --piq-color-overlay: rgba(0, 0, 0, .55);
+  --piq-color-dim: rgba(13, 10, 8, .45);
+  --piq-color-danger-soft: rgba(229, 100, 90, .12);
+  --piq-color-danger-border: rgba(229, 100, 90, .30);
+  --piq-color-danger-zone-soft: rgba(229, 100, 90, .06);
+  --piq-color-danger-zone-border: rgba(229, 100, 90, .20);
+  --piq-color-toast-bg: rgba(38, 30, 25, .96);
+  --piq-color-toast-text: #F4ECE2;
+
+  --piq-shadow-1: 0 1px 2px rgba(0, 0, 0, .24), 0 8px 24px rgba(0, 0, 0, .28);
+  --piq-shadow-2: 0 2px 6px rgba(0, 0, 0, .28), 0 16px 40px rgba(0, 0, 0, .38);
+  --piq-shadow-sheet: 0 -8px 32px rgba(0, 0, 0, .55);
+  --piq-focus-ring: 0 0 0 2px #14100E, 0 0 0 4px #E3C27A;
+
+  --piq-glass-bar-bg: rgba(20, 16, 14, .26);
+  --piq-glass-bar-blur: blur(8px) saturate(170%);
+  --piq-glass-bar-border: 1px solid rgba(255, 255, 255, .16);
+  --piq-glass-bar-highlight:
+    inset 0 1px 0 rgba(255, 255, 255, .22),
+    inset 1px 0 0 rgba(255, 255, 255, .08),
+    inset -1px 0 0 rgba(255, 255, 255, .06),
+    inset 0 -1px 0 rgba(227, 194, 122, .30);
+  --piq-glass-bar-shadow: 0 10px 30px rgba(0, 0, 0, .36), 0 2px 6px rgba(0, 0, 0, .24);
+  --piq-glass-bar-caustic:
+    linear-gradient(to bottom, rgba(255, 255, 255, .16) 0 .8px, rgba(255, 255, 255, 0) 84px),
+    radial-gradient(130% 78% at 50% 122%, rgba(227, 194, 122, .10), rgba(227, 194, 122, 0) 62%);
+  --piq-glass-scrim: linear-gradient(to top, rgba(13, 10, 8, .60) 0, rgba(13, 10, 8, .32) 56px, rgba(13, 10, 8, 0) 118px);
+  --piq-pill-border: rgba(255, 255, 255, .20);
+  --piq-pill-surface:
+    radial-gradient(120% 84% at 50% -26%, rgba(255, 255, 255, .12), rgba(255, 255, 255, 0) 64%),
+    rgba(255, 255, 255, .02);
+  --piq-pill-arcs:
+    radial-gradient(92% 54% at 50% -12%, rgba(255, 255, 255, .40), rgba(255, 255, 255, 0) 62%),
+    radial-gradient(84% 40% at 50% 114%, rgba(227, 194, 122, .22), rgba(227, 194, 122, 0) 72%);
+  --piq-pill-shadow:
+    inset 0 .5px 0 rgba(255, 255, 255, .32),
+    inset 0 -1px 0 rgba(227, 194, 122, .44),
+    inset 0 7px 10px -9px rgba(0, 0, 0, .70),
+    inset 1px 0 0 rgba(255, 226, 186, .18),
+    inset -1px 0 0 rgba(198, 224, 255, .20),
+    0 0 0 .5px rgba(227, 194, 122, .18),
+    0 5px 14px rgba(0, 0, 0, .30);
+  --piq-tab-label-shadow: 0 1px 2px rgba(0, 0, 0, .55);
+  --piq-glass-fallback: #1A1512;
+  --piq-glass-surface: linear-gradient(152deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .02) 56%, rgba(224, 113, 92, .05));
+  --piq-glass-edge: inset 0 1px 0 rgba(255, 255, 255, .22), inset 0 -1px 0 rgba(0, 0, 0, .32);
+  --piq-glass-focus-bg: rgba(31, 25, 21, .58);
+  --piq-glass-focus-border: rgba(255, 255, 255, .16);
+  --piq-glass-focus-highlight: inset 0 1px 0 rgba(255, 255, 255, .24), inset 0 -1px 0 rgba(0, 0, 0, .30);
+  --piq-glass-focus-blur: blur(20px) saturate(140%);
+  --piq-glass-hero-bg: linear-gradient(135deg, rgba(255, 255, 255, .10), rgba(224, 113, 92, .10) 55%, rgba(201, 162, 75, .08));
+  --piq-glass-hero-bg-strong: linear-gradient(135deg, rgba(255, 255, 255, .14), rgba(224, 113, 92, .14) 55%, rgba(201, 162, 75, .10));
+  --piq-glass-hero-border: rgba(255, 255, 255, .14);
+  --piq-glass-hero-highlight: inset 0 1px 0 rgba(255, 255, 255, .22), inset 1px 0 0 rgba(255, 255, 255, .08);
+  --piq-topbar-bg: linear-gradient(to bottom, rgba(20, 16, 14, .94) 0%, rgba(20, 16, 14, .82) 62%, rgba(20, 16, 14, 0) 100%);
+  --piq-skeleton-bg: linear-gradient(90deg, #1F1915 0%, #2A211B 50%, #1F1915 100%);
+  --piq-sheet-scrim: rgba(0, 0, 0, .55);
+  --piq-ring-track-color: rgba(244, 236, 226, .10);
+  --piq-chart-grid: rgba(244, 236, 226, .12);
+  --piq-chart-reference: rgba(227, 194, 122, .65);
+  --piq-progress-track: rgba(244, 236, 226, .10);
+  --piq-switch-track: #2A211B;
+  --piq-switch-knob-color: #A29482;
+  --piq-switch-knob-on: #1A1411;
 }

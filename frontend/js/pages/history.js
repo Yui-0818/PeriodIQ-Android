@@ -118,7 +118,7 @@
             ariaLabel: '周期长度走势图，' + points.length + ' 个完整周期',
             emptyText: '数据不足，继续记录后更新'
           }),
-          h('p', { class: 'chart-note', text: average === null ? '按记录时间从早到晚' : '按记录时间从早到晚；虚线为平均值' })
+          h('p', { class: 'chart-note', text: '按记录时间从早到晚' })
         ])
       ]);
     }

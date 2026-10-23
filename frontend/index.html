@@ -3,8 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAFAF8">
   <title>PeriodIQ</title>
+  <script>
+    (function () {
+      try {
+        var mode = localStorage.getItem('piq.theme') || 'light';
+        var dark = mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.content = dark ? '#14100E' : '#FAFAF8';
+      } catch (e) { /* 无 localStorage 时按亮色启动 */ }
+    })();
+  </script>
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/shell.css">
@@ -14,20 +27,28 @@
   <link rel="stylesheet" href="css/components.css">
 </head>
 <body>
+  <!-- 液态玻璃胶囊的位移图：R = x 位移、G = y 位移（128 为中性）。
+       区域放大到 140%/144%，给边缘压缩留出可采样的背景像素；只被 CSS 引用，不渲染。 -->
+  <svg class="piq-filter-defs" width="0" height="0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="piq-pill-lens" x="-20%" y="-22%" width="140%" height="144%"
+              filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse"
+              color-interpolation-filters="sRGB">
+        <feImage href="assets/glass-pill.png" preserveAspectRatio="none" result="map"/>
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="32"
+                           xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
   <div id="app">
     <header class="topbar" id="topbar">
       <button class="topbar-action topbar-back" id="topbar-back" type="button" aria-label="返回" hidden>‹</button>
       <h1 class="topbar-title" id="topbar-title">今天</h1>
-      <button class="avatar" id="avatar" type="button" aria-label="我的与设置">
-        <img class="avatar-img" id="avatar-img" alt="" hidden>
-        <span class="avatar-mark" id="avatar-mark">·</span>
-      </button>
     </header>
     <main id="view" class="view" tabindex="-1"></main>
     <div class="bottom-scrim" aria-hidden="true"></div>
     <nav class="bottom-nav" id="bottom-nav" aria-label="主导航">
       <div class="tab-items" id="tab-items"></div>
-      <button class="fab" id="fab" type="button" aria-label="快捷记录">+</button>
     </nav>
   </div>
   <div id="sheet-root"></div>
@@ -36,6 +57,7 @@
   <script defer src="js/api.js"></script>
   <script defer src="js/copy.js"></script>
   <script defer src="js/art.js"></script>
+  <script defer src="js/theme.js"></script>
   <script defer src="js/ui.js"></script>
   <script defer src="js/router.js"></script>
   <script defer src="js/charts.js"></script>

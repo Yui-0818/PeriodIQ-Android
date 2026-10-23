@@ -12,16 +12,11 @@
     view: document.getElementById('view'),
     title: document.getElementById('topbar-title'),
     back: document.getElementById('topbar-back'),
-    avatar: document.getElementById('avatar'),
-    avatarImg: document.getElementById('avatar-img'),
-    avatarMark: document.getElementById('avatar-mark'),
-    tabs: document.getElementById('tab-items'),
-    fab: document.getElementById('fab')
+    tabs: document.getElementById('tab-items')
   };
   var state = {
     user: null,
     page: null,
-    lastMain: 'today',
     booting: true,
     ime: false,
     savedScroll: 0
@@ -54,33 +49,15 @@
     });
   }
 
-  function applyAvatar(initial) {
-    var avatar = state.user && typeof state.user.avatar === 'string' ? state.user.avatar : '';
-    var hasAvatar = /^data:image\/(png|jpeg|webp);base64,/.test(avatar);
-    if (hasAvatar) {
-      els.avatarImg.src = avatar;
-      els.avatarImg.hidden = false;
-      els.avatarMark.hidden = true;
-    } else {
-      els.avatarImg.removeAttribute('src');
-      els.avatarImg.hidden = true;
-      els.avatarMark.hidden = false;
-      els.avatarMark.textContent = initial ? String(initial).slice(0, 1).toUpperCase() : '·';
-    }
-  }
-
   function applyShell(route) {
     var login = route.name === 'login';
     els.app.classList.toggle('login-mode', login);
     els.app.classList.toggle('subpage', !login && !route.main);
     els.back.hidden = login || route.main;
-    els.avatar.hidden = login || !route.main;
     els.title.hidden = login;
     els.title.textContent = route.title || '';
     document.title = route.title ? route.title + ' · PeriodIQ' : 'PeriodIQ';
     updateTabs(login || !route.main ? '' : route.name);
-    var initial = state.user && (state.user.nickname || state.user.username);
-    applyAvatar(initial);
   }
 
   function destroyPage() {
@@ -112,11 +89,11 @@
     els.app.classList.add('login-mode');
     els.app.classList.remove('subpage');
     els.back.hidden = true;
-    els.avatar.hidden = true;
     els.title.hidden = true;
     els.title.textContent = '';
     document.title = 'PeriodIQ';
     updateTabs('');
+    if (window.PIQ.theme) window.PIQ.theme.syncSystemBars();
     syncApp(null);
     window.PIQ.pages.login.render(els.view);
   }
@@ -144,9 +121,9 @@
       return;
     }
     ui.closeAll();
-    if (route.main) state.lastMain = route.name;
     destroyPage();
     applyShell(route);
+    if (window.PIQ.theme) window.PIQ.theme.syncSystemBars();
     els.view.textContent = '';
     var ctx = { route: route, user: state.user, refresh: refreshCurrent };
     if (route.name === 'today' && window.PIQ.pages.today) {
@@ -159,6 +136,8 @@
       state.page = window.PIQ.pages.analysis.render(els.view, ctx);
     } else if (route.name === 'profile' && window.PIQ.pages.profile) {
       state.page = window.PIQ.pages.profile.render(els.view, ctx);
+    } else if (route.name === 'settings/appearance' && window.PIQ.pages.settings) {
+      state.page = window.PIQ.pages.settings.renderAppearance(els.view, ctx);
     } else if (route.name === 'settings/notifications' && window.PIQ.pages.settings) {
       state.page = window.PIQ.pages.settings.renderNotifications(els.view, ctx);
     } else if (route.name === 'settings/data' && window.PIQ.pages.data) {
@@ -187,8 +166,7 @@
 
   function goBack() {
     var route = router.current();
-    if (route.name === 'profile') router.go(state.lastMain);
-    else if (route.parent) router.go(route.parent);
+    if (route.parent) router.go(route.parent);
     else router.go('today');
   }
 
@@ -260,8 +238,9 @@
 
   function wire() {
     els.back.addEventListener('click', goBack);
-    els.avatar.addEventListener('click', function () { router.go('profile'); });
-    els.fab.addEventListener('click', function () { openRecord(); });
+    document.addEventListener('piq:theme', function () {
+      if (window.PIQ.theme) window.PIQ.theme.syncSystemBars();
+    });
     router.onChange(function () {
       if (!state.booting) renderRoute();
     });

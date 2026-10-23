@@ -1,7 +1,7 @@
 {
   "entry": "index.html",
-  "minApp": "2.0.0",
-  "background_color": "#14100E",
-  "theme_color": "#14100E",
+  "minApp": "2.1.0",
+  "background_color": "#FAFAF8",
+  "theme_color": "#FAFAF8",
   "orientation": "portrait"
 }

@@ -3,10 +3,8 @@
 
   window.PIQ = window.PIQ || {};
   window.PIQ.copy = {
-    tabs: { today: '今天', calendar: '日历', history: '历史', analysis: '分析' },
+    tabs: { today: '今天', calendar: '日历', history: '历史', analysis: '分析', profile: '我的' },
     back: '返回',
-    avatarLabel: '我的与设置',
-    fabLabel: '快捷记录',
     login: '登录',
     register: '注册',
     loggingIn: '登录中…',
@@ -14,7 +12,7 @@
     emptyTitle: '还没有记录',
     emptyToday: '记录第一次经期，模型才能开始学习。',
     emptyHistory: '每一条记录都会让预测更接近你。',
-    emptyHint: '也可以点右下角 + 随时记录。',
+    emptyHint: '之后可以在今天页或日历里随时补记。',
     recordStart: '记录经期开始',
     recordEnd: '记录经期结束',
     recordEdit: '修正最近记录',

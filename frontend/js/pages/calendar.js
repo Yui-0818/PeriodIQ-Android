@@ -6,7 +6,8 @@
   var art = window.PIQ.art;
   var copy = window.PIQ.copy;
   var h = ui.h;
-  var WEEK = ['日', '一', '二', '三', '四', '五', '六'];
+  var WEEK = ['一', '二', '三', '四', '五', '六', '日'];
+  var MONTH_NAMES = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
   var PHASE_LABEL = { period: '经期', predicted: '预测经期', fertile: '易孕期', ovulation: '排卵日' };
 
   function sortCycles(list) {
@@ -55,7 +56,7 @@
 
   function legendItem(cls, label) {
     return h('span', { class: 'legend-item' }, [
-      h('span', { class: 'legend-dot ' + cls, 'aria-hidden': 'true' }),
+      h('span', { class: 'cal-key ' + cls, 'aria-hidden': 'true' }),
       label
     ]);
   }
@@ -87,6 +88,26 @@
     var root = h('div', { class: 'page calendar-page' });
     container.appendChild(root);
     var page = {};
+    var touchX = null;
+    var touchY = null;
+
+    function onTouchStart(event) {
+      if (event.touches.length !== 1) return;
+      touchX = event.touches[0].clientX;
+      touchY = event.touches[0].clientY;
+    }
+
+    function onTouchEnd(event) {
+      if (touchX === null) return;
+      var dx = event.changedTouches[0].clientX - touchX;
+      var dy = event.changedTouches[0].clientY - touchY;
+      touchX = null;
+      touchY = null;
+      if (Math.abs(dx) > 52 && Math.abs(dy) < 40) monthShift(dx < 0 ? 1 : -1);
+    }
+
+    root.addEventListener('touchstart', onTouchStart, { passive: true });
+    root.addEventListener('touchend', onTouchEnd, { passive: true });
 
     function clearTimer() {
       if (state.timer) { clearTimeout(state.timer); state.timer = null; }
@@ -208,7 +229,7 @@
     function paintGrid(wrap) {
       var phaseIndexValue = phaseIndex();
       var first = new Date(state.year, state.month, 1);
-      var start = ui.addDays(ui.isoOf(first), -first.getDay());
+      var start = ui.addDays(ui.isoOf(first), -((first.getDay() + 6) % 7));
       var grid = h('div', { class: 'month-grid' });
       var cycles = state.cycles || [];
       for (var i = 0; i < 42; i += 1) {
@@ -228,30 +249,68 @@
           onclick: function (day, ph) {
             return function () { openDay(day, ph); };
           }(date, phase)
-        }, String(parsed.getDate())));
+        }, [
+          h('span', { class: 'cal-day', text: String(parsed.getDate()) }),
+          phase ? h('span', { class: 'cal-mark is-' + phase, 'aria-hidden': 'true' }) : null
+        ]));
       }
       wrap.appendChild(grid);
     }
 
     function emptyState() {
-      return h('div', { class: 'card empty' }, [
-        h('img', {
-          class: 'empty-art',
-          src: art.emptyMoon,
-          alt: '',
-          'aria-hidden': 'true',
-          width: '160',
-          height: '160'
-        }),
+      return h('div', { class: 'empty' }, [
+        h('div', { class: 'empty-art-wrap' }, [
+          h('img', {
+            class: 'empty-art',
+            src: art.emptyMoon,
+            alt: '',
+            'aria-hidden': 'true',
+            width: '84',
+            height: '84'
+          })
+        ]),
         h('div', { class: 'empty-title', text: copy.emptyTitle }),
         h('div', { class: 'empty-text', text: '记录第一次经期后，日历会显示周期、易孕期与预测。' }),
         h('button', {
-          class: 'btn btn-primary btn-block',
+          class: 'btn btn-hero btn-block',
           type: 'button',
           onclick: function () {
             window.PIQ.pages.record.open({ mode: 'start', onDone: function () { page.refresh(); } });
           }
         }, copy.recordStart)
+      ]);
+    }
+
+    function shortDate(iso) {
+      var date = ui.parseISO(iso);
+      return date ? (date.getMonth() + 1) + '/' + date.getDate() : '—';
+    }
+
+    function summaryCell(value, label) {
+      return h('div', { class: 'calendar-stat' }, [
+        h('span', { class: 'calendar-stat-value', text: value }),
+        h('span', { class: 'calendar-stat-label', text: label })
+      ]);
+    }
+
+    function summary() {
+      var monthKey = state.year + '-' + ui.pad2(state.month + 1);
+      var monthCycles = (state.cycles || []).filter(function (cycle) {
+        return String(cycle.period_start || '').slice(0, 7) === monthKey;
+      });
+      var lengths = monthCycles.map(function (cycle) {
+        var days = Number(cycle.period_days);
+        if (Number.isFinite(days) && days > 0) return days;
+        return cycle.period_start && cycle.period_end ? ui.diffDays(cycle.period_start, cycle.period_end) + 1 : null;
+      }).filter(function (value) { return value !== null; });
+      var average = lengths.length
+        ? Math.round(lengths.reduce(function (sum, value) { return sum + value; }, 0) / lengths.length * 10) / 10
+        : null;
+      var next = state.pred && state.pred.predicted_date;
+      return h('div', { class: 'calendar-summary' }, [
+        summaryCell(String(monthCycles.length), '本月记录'),
+        summaryCell(average === null ? '—' : String(average), '平均经期'),
+        summaryCell(next ? shortDate(next) : '—', '下次预测')
       ]);
     }
 
@@ -262,6 +321,7 @@
         return;
       }
       root.textContent = '';
+      var card = h('section', { class: 'calendar-card glass-surface', 'aria-label': '日历，左右滑动切换月份' });
       var monthBar = h('div', { class: 'month-bar' }, [
         h('button', {
           class: 'month-side',
@@ -269,7 +329,13 @@
           'aria-label': '上个月',
           onclick: function () { monthShift(-1); }
         }, '‹'),
-        h('div', { class: 'month-title', text: ui.monthTitle(state.year, state.month) }),
+        h('h2', {
+          class: 'month-heading',
+          'aria-label': ui.monthTitle(state.year, state.month)
+        }, [
+          h('span', { class: 'month-kicker', text: state.year + ' · 周期台账' }),
+          h('span', { class: 'month-title', text: MONTH_NAMES[state.month] })
+        ]),
         h('button', {
           class: 'month-side',
           type: 'button',
@@ -277,8 +343,9 @@
           onclick: function () { monthShift(1); }
         }, '›'),
         h('button', {
-          class: 'month-side month-today',
+          class: 'month-today',
           type: 'button',
+          'aria-label': '回到今天',
           onclick: function () {
             var now = ui.parseISO(ui.todayISO());
             state.year = now.getFullYear();
@@ -288,15 +355,16 @@
           }
         }, '今天')
       ]);
-      root.appendChild(monthBar);
-      root.appendChild(h('div', { class: 'week-row', 'aria-hidden': 'true' }, WEEK.map(function (day) {
-        return h('span', { class: 'week-day', text: day });
+      card.appendChild(monthBar);
+      card.appendChild(h('div', { class: 'week-row', 'aria-hidden': 'true' }, WEEK.map(function (day) {
+        return h('span', { class: 'week-day-label', text: day });
       })));
+      root.appendChild(card);
 
       if (state.loading && !state.loaded && state.skeleton) {
         var skeletonGrid = h('div', { class: 'month-grid' });
         for (var s = 0; s < 42; s += 1) skeletonGrid.appendChild(h('div', { class: 'skeleton cal-skeleton', 'aria-hidden': 'true' }));
-        root.appendChild(skeletonGrid);
+        card.appendChild(skeletonGrid);
         return;
       }
       if (state.loading && !state.loaded) return;
@@ -304,15 +372,17 @@
         root.appendChild(ui.errorCard(ui.safeMessage(state.error, copy.genericError), '重试', function () { load(); }));
         return;
       }
-      paintGrid(root);
-      root.appendChild(h('div', { class: 'legend' }, [
+      paintGrid(card);
+      card.appendChild(h('div', { class: 'legend' }, [
         legendItem('is-period', '经期'),
         legendItem('is-predicted', '预测'),
         legendItem('is-fertile', '易孕'),
         legendItem('is-ovulation', '排卵')
       ]));
+      card.appendChild(summary());
+      card.appendChild(h('div', { class: 'calendar-source', text: '台账 · 本机记录' }));
       if (!state.fertile) {
-        root.appendChild(h('div', { class: 'cal-hint', text: '易孕期与排卵标记暂不可用' }));
+        card.appendChild(h('div', { class: 'cal-hint', text: '易孕期与排卵标记暂不可用' }));
       }
     }
 
@@ -358,7 +428,12 @@
     }
 
     page.refresh = function () { return load(); };
-    page.destroy = function () { state.alive = false; clearTimer(); };
+    page.destroy = function () {
+      state.alive = false;
+      clearTimer();
+      root.removeEventListener('touchstart', onTouchStart);
+      root.removeEventListener('touchend', onTouchEnd);
+    };
     load();
     return page;
   }

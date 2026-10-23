@@ -56,7 +56,7 @@
   }
 
   function metricCell(label, value, unit) {
-    return h('div', { class: 'kpi-cell' }, [
+    return h('div', { class: 'kpi-cell glass-surface' }, [
       h('span', { class: 'kpi-label', text: label }),
       h('span', { class: 'kpi-value' }, [
         h('span', { class: 'numeric', text: value }),
@@ -103,7 +103,7 @@
       var average = finite(stats.avg_cycle_length);
       var status = STATUS[stats.status] || '';
       var anomaly = stats.status === 'ANOMALY_ALERT';
-      var card = h('section', { class: 'analysis-hero' }, [
+      var card = h('section', { class: 'analysis-hero glass-focus' }, [
         h('div', { class: 'analysis-hero-main' }, [
           h('div', { class: 'data-kicker', text: '平均周期' }),
           h('div', { class: 'analysis-avg-row' }, [
